@@ -2,7 +2,7 @@ require 'open-uri'
 require 'nokogiri'
 
 module Joyent::Cloud::Pricing
-  class Scraper < Hash
+  class Scraper
 
     JOYENT_URL = "http://www.joyent.com/products/compute-service/pricing"
 
@@ -37,9 +37,13 @@ module Joyent::Cloud::Pricing
     end
 
     # Instance methods
-
+    attr_accessor :config
     def initialize(hash = {})
-      self.merge!(hash)
+      @config = hash
+    end
+
+    def [] value
+      self.config[value]
     end
 
   end
