@@ -27,6 +27,13 @@ commit to hardware for one or three years.  Such discounts are done case by case
 you would need to contact your Joyent account representative to get the details. These commits are
 fixed by  flavor, so you would be committing to, say, 10 x ```g3-standard-64-smartos``` flavors for a year.
 
+### The Problem
+
+If you read the above, you understand that tracking your Joyent monthly pricing ends up being pretty
+complicated process. This library was written to make this easier, and to allow users of Joyent Cloud
+quickly check what their monthly pricing should be based on the current footprint, current on-demand
+pricing, and optionally their pre-pay discounts.
+
 ## Installation
 
 Add this line to your application's Gemfile:
