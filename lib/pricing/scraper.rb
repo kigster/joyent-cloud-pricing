@@ -4,20 +4,17 @@ require 'nokogiri'
 module Joyent::Cloud::Pricing
   class Scraper
 
-    JOYENT_URL = "http://www.joyent.com/products/compute-service/pricing"
-
     # Class methods
-
     class << self
       def from_uri(uri = JOYENT_URL)
-        new(parse_html_document(Nokogiri::HTML(open(uri))))
+        Joyent::Cloud::Pricing::Configuration.new(parse_html_document(Nokogiri::HTML(open(uri))))
+      end
+
+      def from_html_file filename
+        Joyent::Cloud::Pricing::Configuration.new(parse_html_document(Nokogiri::HTML(File.read(filename))))
       end
 
       private
-
-      def from_html_file filename
-        new(parse_html_document(Nokogiri::HTML(File.read(filename))))
-      end
 
       def parse_html_document doc
         mappings = Hash.new
@@ -35,17 +32,6 @@ module Joyent::Cloud::Pricing
         mappings
       end
     end
-
-    # Instance methods
-    attr_accessor :config
-    def initialize(hash = {})
-      @config = hash
-    end
-
-    def [] value
-      self.config[value]
-    end
-
   end
 end
 

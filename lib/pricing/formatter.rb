@@ -3,7 +3,6 @@ require 'nokogiri'
 
 module Joyent::Cloud::Pricing
   class Formatter
-    HOURS_PER_MONTH = 720
 
     attr_reader :config
 
