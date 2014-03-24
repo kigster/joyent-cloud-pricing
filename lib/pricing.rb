@@ -1,4 +1,4 @@
-require "joyent/cloud/pricing/version"
+require "pricing/version"
 
 module Joyent
   module Cloud
@@ -7,3 +7,6 @@ module Joyent
     end
   end
 end
+
+require "pricing/scraper"
+require "pricing/formatter"
