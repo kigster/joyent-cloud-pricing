@@ -8,24 +8,28 @@ describe Joyent::Cloud::Pricing::Formatter do
 
   let(:formatter) { Joyent::Cloud::Pricing::Formatter.new(config) }
 
-  context "#monthly_price_for_flavor" do
+  context "#format_monthly_price" do
     it "should return properly formatted monthly price" do
-      expect(formatter.monthly_price_for_flavor "g3-standard-0.625-smartos").to eql("$14.40")
-      expect(formatter.monthly_price_for_flavor "g3-standard-30-kvm").to eql("$691.20")
+      expect(formatter.format_monthly_price "g3-standard-0.625-smartos").to eql("$14.40")
+      expect(formatter.format_monthly_price "g3-standard-30-kvm").to eql("$691.20")
     end
   end
   context "#monthly_formatted_price_for_flavor" do
     it "should return properly formatted monthly price" do
-      expect(formatter.monthly_formatted_price_for_flavor "g3-standard-48-smartos").to eql(" $1,105.92")
+      expect(formatter.format_monthly_price "g3-standard-48-smartos", 10).to eql(" $1,105.92")
     end
     it "should return blank when no match was found" do
-      expect(formatter.monthly_formatted_price_for_flavor "asdfkasdfasdlfkjasl;dkjf").to eql("")
+      expect(formatter.format_monthly_price "asdfkasdfasdlfkjasl;dkjf").to eql("")
     end
   end
-  context "#formatted_price_for_value" do
+  context "#format_price" do
     it "should return properly formatted price" do
-      expect(formatter.formatted_price_for_value 24566.34).to eql("$24,566.34")
-      expect(formatter.formatted_price_for_value 4566.34).to eql(" $4,566.34")
+      expect(formatter.format_price 24566.34, 10).to eql("$24,566.34")
+      expect(formatter.format_price 4566.34,  10).to eql(" $4,566.34")
+    end
+    it "should return blank string of given width for 0 or nil" do
+      expect(formatter.format_price 0, 10).to eql("          ")
+      expect(formatter.format_price nil, 10).to eql("          ")
     end
   end
 end
