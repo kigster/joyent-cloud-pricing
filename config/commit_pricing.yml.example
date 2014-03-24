@@ -1,0 +1,14 @@
+defaults: &defaults
+    years: 1
+
+reserved:
+  "g3-highcpu-32-smartos-cc": 
+    <<: *defaults
+    prepay: 8000.0
+    monthly: 500
+    number: 10
+  "g3-highmemory-17.125-smartos":
+    <<: *defaults
+    prepay: 800.00
+    monthly: 60
+    number: 12
