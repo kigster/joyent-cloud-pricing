@@ -1,8 +1,18 @@
 [![Build status](https://secure.travis-ci.org/kigster/joyent-cloud-pricing.png)](http://travis-ci.org/kigster/joyent-cloud-pricing)
+[![Code Climate](https://codeclimate.com/github/kigster/joyent-cloud-pricing.png)](https://codeclimate.com/github/kigster/joyent-cloud-pricing)
 
 # Joyent Cloud Pricing
 
-Gem encapsulating various tools to aid in understanding total monthly and pre-pay footprint of Joyent cloud pricing.
+Joyent currently does not provide API for getting prices of their images. It is available
+on the website, but not anywhere else.
+
+In addition, Joyent offers commit discounts to larger accounts that are willing to prepay and
+commit to hardware for one or three years.  Such discounts are done case by case basis, and so
+you would need to contact your Joyent account representative to get the details.
+
+This gem encapsulating various tools around understanding Joyent pricing based on on-demand,
+as well as commit pricing.  It works together with [knife-joyent](https://github.com/joyent/knife-joyent)
+Chef plugin to show a detailed list of servers with pricing included.
 
 ## Installation
 
@@ -20,7 +30,15 @@ Or install it yourself as:
 
 ## Usage
 
-TBD.
+Most recent pricing structure is stored in the YAML file under ```config/joyent_pricing.yml```.
+
+To update this file, run provided rake task:
+
+```ruby
+rake joyent:pricing:update
+```
+
+
 
 ## Contributing
 
