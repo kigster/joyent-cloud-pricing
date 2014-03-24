@@ -18,7 +18,7 @@ describe 'Joyent::Cloud::Pricing::Reserve' do
   end
 
   it "should calculate total payout" do
-    expect(reserve.total_payout).to eql(14000.0)
+    expect(reserve.total_payout).to eql((8000 + 12*500).round(2))
   end
 
   it "should calculate monthly discount" do
@@ -27,7 +27,7 @@ describe 'Joyent::Cloud::Pricing::Reserve' do
     expect(pricing.monthly flavor).to eq(1669.68)
 
     expect(reserve.monthly_discount).to eql(503.01)
-    expect(reserve.monthly_discount_percent).to eql(30.13)
+    expect(reserve.monthly_discount_percent).to eql((100 * 503.01 / 1669.68).round(2))
   end
 
 end

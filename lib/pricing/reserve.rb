@@ -2,12 +2,13 @@ module Joyent::Cloud::Pricing
   class Reserve
     include Helpers
 
-    attr_accessor :flavor, :monthly, :prepay, :years
+    attr_accessor :flavor, :monthly, :prepay, :years, :quantity
 
     def initialize(flavor, config)
       @flavor   = flavor.to_sym
       @prepay   = config[:prepay].to_f
       @monthly  = config[:monthly].to_f
+      @quantity = config[:quantity].to_i
       @years    = config[:years]
     end
 
@@ -36,7 +37,7 @@ module Joyent::Cloud::Pricing
     end
 
     def to_hash
-      {prepay: prepay, monthly: monthly, years: years}
+      {prepay: prepay, monthly: monthly, years: years, quantity: quantity}
     end
 
     private

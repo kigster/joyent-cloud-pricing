@@ -24,6 +24,12 @@ module Joyent::Cloud::Pricing
       reserves[flavor.to_sym]
     end
 
+    def monthly_price
+      reserves.values.inject(0) do |sum, reserve|
+        sum += reserve.monthly * reserve.quantity; sum
+      end
+    end
+
   end
 end
 

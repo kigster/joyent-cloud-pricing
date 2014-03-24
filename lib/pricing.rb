@@ -19,3 +19,5 @@ require "pricing/configuration"
 require "pricing/scraper"
 require "pricing/formatter"
 require "pricing/commit"
+require "pricing/analyzer"
+

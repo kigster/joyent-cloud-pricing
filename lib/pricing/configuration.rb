@@ -33,7 +33,14 @@ module Joyent::Cloud::Pricing
     end
 
     def monthly flavor
-      monthly_from_hourly self[flavor]
+      f = self[flavor]
+      if f.nil?
+        STDERR.puts "WARNING: can't find flavor #{flavor}, assuming 0"
+        0
+      else
+        monthly_from_hourly f
+      end
+
     end
 
     def save_yaml(filename = PRICING_FILENAME)
