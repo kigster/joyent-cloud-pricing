@@ -74,8 +74,8 @@ describe 'Joyent::Cloud::Pricing::Analyze' do
     expect(analyzer.excess_monthly_price).to eql( 6432.48 )
   end
 
-  it '#over_provisioned_zone_list' do
-    expect(analyzer.over_provisioned_zone_list).to eql( {:"g3-highio-60.5-smartos" => 1 })
+  it '#over_committed_zone_list' do
+    expect(analyzer.over_committed_zone_list).to eql( {:"g3-highio-60.5-smartos" => 1 })
   end
 
 

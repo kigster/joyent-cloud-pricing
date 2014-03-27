@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/joyent-cloud-pricing.png)](http://badge.fury.io/rb/joyent-cloud-pricing)
 [![Build status](https://secure.travis-ci.org/kigster/joyent-cloud-pricing.png)](http://travis-ci.org/kigster/joyent-cloud-pricing)
 [![Code Climate](https://codeclimate.com/github/kigster/joyent-cloud-pricing.png)](https://codeclimate.com/github/kigster/joyent-cloud-pricing)
 
@@ -57,6 +58,68 @@ To update this file, run provided rake task:
 ```ruby
 rake joyent:pricing:update
 ```
+
+## Full Pricing
+
+Full price is stored in the configuration instance.
+
+```ruby
+Joyent::Cloud::Pricing::Configuration.instance["g3-standard-48-smartos"]
+# => 1.536
+```
+
+## Analysis of Commit Pricing
+
+Reserve pricing is meant to be defined by a YAML file, outside of the gem folder,
+somewhere on the file system. File looks like this:
+
+```yaml
+defaults: &defaults
+    years: 1
+
+reserved:
+  "g3-highcpu-32-smartos-cc":
+    <<: *defaults
+    prepay: 8000.00
+    monthly: 500
+    quantity: 10
+  "g3-highmemory-17.125-smartos":
+    <<: *defaults
+    prepay: 800.00
+    monthly: 60
+    quantity: 12
+  "g3-highio-60.5-smartos":
+    <<: *defaults
+    prepay: 1800.00
+    monthly: 600
+    quantity: 5
+```
+
+Each reserve defines the upfront component (per instance) ```prepay```, monthly pricing and quantity of the
+reserved instances of this type/price.
+
+Subsequently, analyzer can be used to analyze the current list of flavors in use versus commit, and
+come up with recommendations and some calculations:
+
+```ruby
+# current list of flavors in use
+flavors = %w(
+    g3-highcpu-7-smartos
+    g3-highcpu-7-smartos
+    g3-highio-60.5-smartos
+    g3-highio-60.5-smartos
+    g3-highio-60.5-smartos
+)
+commit   = Joyent::Cloud::Pricing::Commit.from_yaml 'my_company/config/joyent-commit-pricing.yml'
+analyzer = Joyent::Cloud::Pricing::Analyzer.new(commit, flavors)
+
+analyzer.excess_monthly_price     # => monthly $$ for instances in excess of reserve
+analyzer.over_committed_zone_list # => list of zones in reserve, but not in reality
+```
+
+## Command Line Tools
+
+TBD.
 
 ## Contributing
 
