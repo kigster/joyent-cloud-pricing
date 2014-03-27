@@ -12,15 +12,15 @@ module Joyent::Cloud::Pricing
       end
 
       def from_yaml(filename = PRICING_FILENAME)
-        set_config(new(YAML.load(File.read(filename))[:pricing]))
+        set_instance(new(YAML.load(File.read(filename))[:pricing]))
       end
 
       def from_url(url = JOYENT_URL)
-        set_config(new(Joyent::Cloud::Pricing::Scraper.new.scrape(url)))
+        set_instance(new(Joyent::Cloud::Pricing::Scraper.new.scrape(url)))
       end
 
       private
-      def set_config(config)
+      def set_instance(config)
         @@lock.synchronize do
           @last_instance = config
         end
