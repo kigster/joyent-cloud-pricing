@@ -6,16 +6,24 @@ module Joyent::Cloud::Pricing
     @@lock = Mutex.new # just in case
 
     class << self
-      def from_yaml(filename = PRICING_FILENAME)
-        @@lock.synchronize do
-          @last_instance = new(YAML.load(File.read(filename))[:pricing])
-        end
-        @last_instance
-      end
-
       def instance(reload = false)
         @last_instance = from_yaml if reload || @last_instance.nil?
         @last_instance
+      end
+
+      def from_yaml(filename = PRICING_FILENAME)
+        set_config(new(YAML.load(File.read(filename))[:pricing]))
+      end
+
+      def from_url(url = JOYENT_URL)
+        set_config(new(Joyent::Cloud::Pricing::Scraper.new.scrape(url)))
+      end
+
+      private
+      def set_config(config)
+        @@lock.synchronize do
+          @last_instance = config
+        end
       end
     end
 
