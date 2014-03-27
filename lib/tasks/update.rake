@@ -5,7 +5,7 @@ namespace :joyent do
     desc "Refresh pricing configuration from the Joyent website"
     task :update do
       load_from_url = Joyent::Cloud::Pricing::JOYENT_URL
-      save_to_file = [Dir.pwd, Joyent::Cloud::Pricing::PRICING_FILENAME].join('/')
+      save_to_file = Joyent::Cloud::Pricing::PRICING_FILENAME
 
       STDOUT.puts "downloading latest prices from #{load_from_url}"
       config = Joyent::Cloud::Pricing::Configuration.from_url(load_from_url)
