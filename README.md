@@ -117,6 +117,49 @@ analyzer.excess_monthly_price     # => monthly $$ for instances in excess of res
 analyzer.over_reserved_zone_list  # => list of zones in reserve, but not in reality
 ```
 
+## Reporter
+
+This module is used by ```knife joyent server price``` plugin to calculate pricing with and without
+reserve discounts.
+
+```ruby
+current_zone_list = %w(g3-highcpu-8-smartos g3-highcpu-8-smartos ... )
+reporter = Joyent::Cloud::Pricing::Reporter.new('config/reserve-commit.yml', current_zone_list)
+puts reporter.render```
+
+Output (prices are arbitrary in this sample output):
+
+```bash
+
+SUMMARY:
+  Total # of zones                         :                  123
+  Total # of reserved zones                :                   98
+  Total # of reserved but WASTED zones     :                    0
+  Reserve Pricing Term/Duration (years)    :                    1
+
+ONE TIME:
+  Reserve Pricing Upfront Payments         :          $211,717.18
+
+MONTHLY:
+  Monthly Cost of Reserve Pricing Zones    :           $12,457.51
+  On Demand Resources Cost                 :           $23,679.68
+  Total Monthly (reserve + on demand)      :           $41,087.19
+
+YEARLY TOTALS:
+  With reserve discounts                   :          $331,607.30
+  Without reserve discounts                :          $926,224.00
+  Savings %                                :                  41%
+
+UNRESERVED FLAVORS MONTHLY COST
+  9 x g3-highmemory-68.375-smartos         :           $10,562.40
+  1 x g3-highmemory-256-smartos-cc         :            $4,393.44
+  6 x g3-standard-7.5-smartos              :            $1,036.80
+  1 x g3-highmemory-34.25-smartos          :              $588.24
+  4 x g3-highcpu-1.75-kvm                  :              $365.76
+  4 x g3-standard-0.5-smartos              :               $46.08
+  1 x g3-standard-0.625-smartos            :               $14.40
+```
+
 ## Command Line Tools
 
 TBD.

@@ -21,5 +21,6 @@ require "pricing/scraper"
 require "pricing/formatter"
 require "pricing/commit"
 require "pricing/analyzer"
+require "pricing/reporter"
 
 require "pricing/cli"

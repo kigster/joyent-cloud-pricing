@@ -25,8 +25,30 @@ module Joyent::Cloud::Pricing
     end
 
     def monthly_price
+      sum_of &->(reserve) {reserve.monthly }
+    end
+
+    def upfront_price
+      sum_of &->(reserve) {reserve.prepay}
+    end
+
+    def total_zones
+      sum_of &->(reserve) {1}
+    end
+
+    def yearly_price
+      upfront_price + 12 * monthly_price
+    end
+
+    def years
+      reserves.empty? ? 0 : reserves.values.first.years
+    end
+
+    private
+
+    def sum_of
       reserves.values.inject(0) do |sum, reserve|
-        sum += reserve.monthly * reserve.quantity; sum
+        sum += (yield(reserve)) * reserve.quantity; sum
       end
     end
 

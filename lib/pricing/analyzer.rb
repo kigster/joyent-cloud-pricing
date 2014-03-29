@@ -44,14 +44,18 @@ module Joyent::Cloud::Pricing
       excess_monthly_price + commit_monthly_price
     end
 
+    def upfront
+      commit.upfront
+    end
 
-    private
 
     def monthly_full_price_for zones
       total_price_for zones do |flavor|
         pricing.monthly(flavor)
       end
     end
+
+    private
 
     def total_price_for zones, &block
       zones.keys.inject(0) do |sum, flavor|
