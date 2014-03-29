@@ -125,9 +125,10 @@ reserve discounts.
 ```ruby
 current_zone_list = %w(g3-highcpu-8-smartos g3-highcpu-8-smartos ... )
 reporter = Joyent::Cloud::Pricing::Reporter.new('config/reserve-commit.yml', current_zone_list)
-puts reporter.render```
+puts reporter.render
+```
 
-Output (prices are arbitrary in this sample output):
+Example output with commit pricing used:
 
 ```bash
 
