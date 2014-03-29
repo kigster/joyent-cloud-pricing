@@ -1,15 +1,24 @@
 require 'spec_helper'
 
-describe ' Joyent::Cloud::Pricing::Configuration' do
-  let(:expected_prices) { {
+describe 'Joyent::Cloud::Pricing::Configuration' do
+  expected_prices = {
       "g3-standard-48-smartos" => 1.536,
       "g3-standard-0.625-smartos" => 0.02,
-      "g3-standard-30-kvm" => 0.960} }
+      "g3-standard-30-kvm" => 0.960,
+      "g3-standard-8-smartos" => 0.26,
+      "g3-highcpu-8-smartos" => 0.58,
+      "g3-standard-0.5-smartos" => 0.016
+  }
 
-  it "should load pricing configuration hash from YAML" do
-    config = Joyent::Cloud::Pricing::Configuration.from_yaml 'spec/fixtures/pricing.yml'
+  let(:config) {
+    Joyent::Cloud::Pricing::Configuration.from_yaml 'spec/fixtures/pricing.yml'
+  }
+
+  context "#from_yaml" do
     expected_prices.keys.each do |flavor|
-      expect(config[flavor]).to eql(expected_prices[flavor])
+      it "should load pricing for #{flavor}" do
+        expect(config[flavor]).to eql(expected_prices[flavor])
+      end
     end
   end
 

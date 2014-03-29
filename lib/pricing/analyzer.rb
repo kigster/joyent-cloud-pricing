@@ -18,7 +18,7 @@ module Joyent::Cloud::Pricing
     end
 
     # Zones that are committed, but do not exist
-    def over_committed_zone_list
+    def over_reserved_zone_list
       h = {}
       zone_list.each_pair { |flavor, count| diff = count - quantity_for(flavor); h[flavor] = -diff if diff < 0 }
       h

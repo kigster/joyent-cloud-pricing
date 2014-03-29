@@ -114,7 +114,7 @@ commit   = Joyent::Cloud::Pricing::Commit.from_yaml 'my_company/config/joyent-co
 analyzer = Joyent::Cloud::Pricing::Analyzer.new(commit, flavors)
 
 analyzer.excess_monthly_price     # => monthly $$ for instances in excess of reserve
-analyzer.over_committed_zone_list # => list of zones in reserve, but not in reality
+analyzer.over_reserved_zone_list  # => list of zones in reserve, but not in reality
 ```
 
 ## Command Line Tools

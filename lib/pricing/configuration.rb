@@ -12,7 +12,10 @@ module Joyent::Cloud::Pricing
       end
 
       def from_yaml(filename = PRICING_FILENAME)
-        set_instance(new(YAML.load(File.read(filename))[:pricing]))
+        legacy_prices = YAML.load(File.read(LEGACY_FILENAME)) rescue nil
+        legacy_prices ||= {}
+        current_prices = YAML.load(File.read(filename))[:pricing]
+        set_instance(new(current_prices.merge(legacy_prices)))
       end
 
       def from_url(url = JOYENT_URL)
