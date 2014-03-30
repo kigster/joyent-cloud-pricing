@@ -3,35 +3,35 @@ require_relative 'commit'
 module Joyent::Cloud::Pricing
   class Analyzer
 
-    attr_accessor :commit, :zone_list
+    attr_accessor :commit, :zone_counts
 
     def initialize(commit, flavors = [])
       @commit = commit
-      @zone_list = count_dupes(flavors).symbolize_keys
+      @zone_counts = count_dupes(flavors).symbolize_keys
     end
 
     # Zones that are not on commit
-    def excess_zone_list
+    def excess_zone_counts
       h = {}
-      zone_list.each_pair { |flavor, count| diff = count - quantity_for(flavor); h[flavor] = diff if diff > 0 }
+      zone_counts.each_pair { |flavor, count| diff = count - quantity_for(flavor); h[flavor] = diff if diff > 0 }
       h
     end
 
     # Zones that are committed, but do not exist
-    def over_reserved_zone_list
+    def over_reserved_zone_counts
       h = {}
-      zone_list.each_pair { |flavor, count| diff = count - quantity_for(flavor); h[flavor] = -diff if diff < 0 }
+      zone_counts.each_pair { |flavor, count| diff = count - quantity_for(flavor); h[flavor] = -diff if diff < 0 }
       h
     end
 
     # Non-discounted full price
     def monthly_full_price
-      monthly_full_price_for(zone_list)
+      monthly_full_price_for(zone_counts)
     end
 
     # Excess zones cost this much
     def monthly_overages_price
-      monthly_full_price_for(excess_zone_list)
+      monthly_full_price_for(excess_zone_counts)
     end
 
     # Monthly for all of the commits
@@ -49,7 +49,7 @@ module Joyent::Cloud::Pricing
     end
 
     def monthly_full_price_for zones
-      total_price_for zones do |flavor|
+      count_for_all zones do |flavor|
         pricing.monthly(flavor)
       end
     end
@@ -74,9 +74,31 @@ module Joyent::Cloud::Pricing
       100 * (yearly_full_price - yearly_total) / yearly_full_price
     end
 
+    def cpus
+      count_props(:cpus)
+    end
+
+    def ram
+      count_props(:ram)
+    end
+
+    def disk
+      count_props(:disk)
+    end
+
     private
 
-    def total_price_for zones, &block
+    def count_props(operation)
+      results = [ zone_counts, excess_zone_counts, commit.flavor_counts ].map do |list|
+        count_for_all list do |flavor|
+          pricing.flavor(flavor).send(operation)
+        end
+      end
+      { total: results[0], unreserved: results[1], reserved: results[2] }
+    end
+
+
+    def count_for_all zones, &block
       zones.keys.inject(0) do |sum, flavor|
         sum += zones[flavor] * yield(flavor); sum
       end.round(2)

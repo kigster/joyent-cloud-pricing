@@ -44,6 +44,12 @@ module Joyent::Cloud::Pricing
       reserves.empty? ? 0 : reserves.values.first.years
     end
 
+    def flavor_counts
+      zone_list = {}
+      reserves.keys.each{|zone| zone_list[zone] = reserves[zone].quantity}
+      zone_list
+    end
+
     private
 
     def sum_of

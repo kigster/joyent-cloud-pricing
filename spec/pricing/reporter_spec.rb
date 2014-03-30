@@ -44,23 +44,23 @@ describe 'Joyent::Cloud::Pricing::Reporter' do
     Joyent::Cloud::Pricing::Configuration.instance(true)
   end
 
-  context "#initialize" do
-    it "should not be empty when created" do
+  context '#initialize' do
+    it 'should not be empty when created' do
       expect(reporter).to_not be_nil
       expect(reporter.analyzer).to_not be_nil
       expect(reporter.zones_in_use.size).to eql(flavors.size)
     end
   end
 
-  context "#render" do
-    it "should propertly render an ERB template" do
+  context '#render' do
+    it 'should propertly render an ERB template' do
       output = reporter.render
       expect(output).to_not be_nil
     end
 
-    context "blank commit configuration" do
+    context 'blank commit configuration' do
       let(:commit) { Joyent::Cloud::Pricing::Commit.new }
-      it "should still properly render an ERB template" do
+      it 'should still properly render an ERB template' do
         expect(commit.reserves.size).to eql(0)
         output = reporter.render
         expect(output).to_not be_nil

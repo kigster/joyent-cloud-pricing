@@ -17,7 +17,7 @@ describe 'Joyent::Cloud::Pricing::Configuration' do
   context '#from_yaml' do
     expected_prices.keys.each do |flavor|
       it "should load pricing for #{flavor}" do
-        expect(config[flavor]).to eql(expected_prices[flavor])
+        expect(config.cost(flavor)).to eql(expected_prices[flavor])
       end
     end
   end
@@ -33,6 +33,17 @@ describe 'Joyent::Cloud::Pricing::Configuration' do
 
     it 'should have instance set' do
       expect(Joyent::Cloud::Pricing::Configuration.instance).not_to be_nil
+    end
+  end
+
+  context '#flavor' do
+    it 'should properly instantiate Flavor instance from hash' do
+      flavor = config.flavor 'g3-standard-48-smartos'
+      expect(flavor.class).to eql(Joyent::Cloud::Pricing::Flavor)
+
+      expect(flavor.ram).to eql(12.0)
+      expect(flavor.cpus).to eql(16.0)
+      expect(flavor.cost).to eql(1.536)
     end
   end
 end

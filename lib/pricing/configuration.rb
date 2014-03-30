@@ -1,5 +1,6 @@
 require 'yaml'
 require_relative 'helpers'
+require_relative 'flavor'
 
 module Joyent::Cloud::Pricing
   class Configuration
@@ -39,12 +40,20 @@ module Joyent::Cloud::Pricing
       @config = hash.symbolize_keys
     end
 
-    def [] flavor
-      self.config[flavor.to_sym][:cost]
+    def cost(flavor)
+      f = config[flavor.to_sym]
+      f.nil? ? nil : f[:cost]
     end
 
-    def monthly flavor
-      f = self[flavor]
+    def flavor(flavor)
+      f = config[flavor.to_sym]
+      return nil if f.nil?
+      f.delete(:name) # name is saved in YAML, but it's not in Flavor class hash attributes
+      Flavor.new(flavor, f)
+    end
+
+    def monthly(flavor)
+      f = self.cost(flavor)
       if f.nil?
         STDERR.puts "WARNING: can't find flavor #{flavor}, assuming 0"
         0

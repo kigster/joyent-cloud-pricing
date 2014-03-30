@@ -5,7 +5,7 @@ require 'colored'
 module Joyent::Cloud::Pricing
   class Reporter
 
-    attr_accessor :commit, :zones_in_use, :analyzer, :formatter
+    attr_accessor :commit, :zones_in_use, :analyzer, :formatter, :print_zone_list
 
     def initialize(commit = COMMIT, zones_in_use = [])
       @commit = case commit
@@ -20,8 +20,9 @@ module Joyent::Cloud::Pricing
                 end
 
       @zones_in_use = zones_in_use
-      @analyzer = Analyzer.new(@commit, @zones_in_use)
-      @formatter = Formatter.new(pricing.config)
+      @analyzer = Joyent::Cloud::Pricing::Analyzer.new(@commit, @zones_in_use)
+      @formatter = Joyent::Cloud::Pricing::Formatter.new(pricing.config)
+      @print_zone_list = true
     end
 
     def render
@@ -39,11 +40,11 @@ module Joyent::Cloud::Pricing
     end
 
     def pricing
-      Configuration.instance
+      Joyent::Cloud::Pricing::Configuration.instance
     end
 
     def excess_zones
-      zones = analyzer.excess_zone_list.each_pair.map{|flavor, count| [ flavor, count, pricing.monthly(flavor) * count ]}.sort{|x,y| y[2] <=> x[2]}
+      zones = analyzer.excess_zone_counts.each_pair.map{|flavor, count| [ flavor, count, pricing.monthly(flavor) * count ]}.sort{|x,y| y[2] <=> x[2]}
       zones
     end
 
@@ -55,30 +56,39 @@ module Joyent::Cloud::Pricing
       end.join("\n")
     end
 
+    def zone_props_to_string(prop_type, width, suffix = '', divide_by = 1)
+      props = analyzer.send(prop_type)
+      [ props[:reserved], props[:unreserved], props[:total] ].map do |value|
+        sprintf("%#{width}d#{suffix}", value / divide_by)
+      end
+    end
+
     SEPARATOR = ('.' * 65).cyan
+    PROPS_FORMAT= '%20d %20d %20d'
     REPORT_ASCII = <<ASCII
 
 ZONE COUNTS:
   Total # of zones                           <%= sprintf("%20d", @r.zones).cyan %>
 <%- if @r.reserve? -%>
   Total # of reserved zones                  <%= sprintf("%20d", @r.commit.total_zones).green %>
-  Total # of reserved but absent zones       <%= value = sprintf("%20d", @r.analyzer.over_reserved_zone_list.size || 0); value == "0" ? value.blue : value.red %>
-  Reserve Pricing Term/Duration (years)      <%= sprintf("%20d", @r.commit.years || 0).blue %>
-<%= SEPARATOR %>
-
-RESERVE UPFRONT COST:
-  Reserve Pricing Upfront Payments           <%= @f.format_price(@r.commit.upfront_price, 20).green %>
+  Total # of reserved but absent zones       <%= value = sprintf("%20d", @r.analyzer.over_reserved_zone_counts.size || 0); value == "0" ? value.blue : value.red %>
 <%- end -%>
+
+  Resources in use:<%= sprintf('%14s %15s %15s', 'Reserved', 'On-Demand', 'Total') %>
+           CPUs  <%= props = @r.zone_props_to_string(:cpus, 16); props[0].green + props[1].yellow + props[2].cyan %>
+           RAM   <%= props = @r.zone_props_to_string(:ram,  15, 'G'); props[0].green + props[1].yellow + props[2].cyan %>
+           DISK  <%= props = @r.zone_props_to_string(:disk, 15, 'T', 1024); props[0].green + props[1].yellow + props[2].cyan %>
 <%= SEPARATOR %>
 
 MONTHLY COSTS:
-  List of on-demand flavors by price
+<%- if @r.print_zone_list -%>
+  List of on-demand flavors by price <%= @r.reserve? ? "(in excess of reserve)" : "" %>
 <%= @r.excess_zone_list %>
                                                       <%= "___________".yellow %>
-  On Demand Monthly                          <%= @f.format_price(@r.analyzer.monthly_overages_price, 20).yellow %>
-
+<%- end -%>
+  On demand monthly                          <%= @f.format_price(@r.analyzer.monthly_overages_price, 20).yellow %>
 <%- if @r.reserve? -%>
-  Zones Under Reserve Pricing                <%= @f.format_price(@r.commit.monthly_price, 20).green %>
+  Zones under reserve pricing                <%= @f.format_price(@r.commit.monthly_price, 20).green %>
 <%- end -%>
 <%- if @r.reserve? -%>
                                                       <%= "___________".cyan %>
@@ -88,16 +98,21 @@ MONTHLY COSTS:
 
 YEARLY COSTS:
 <%- if @r.reserve? -%>
-  Savings due to Reserved Pricing            <%= @f.format_price(@r.analyzer.yearly_savings, 20).green %>
-  Savings %                                  <%= sprintf("%19d", @r.analyzer.yearly_savings_percent).green + '%'.green %>
-
-  Reserve Yearly                             <%= @f.format_price(@r.commit.yearly_price, 20).green %>
-  On Demand Yearly                           <%= @f.format_price(@r.analyzer.yearly_overages_price, 20).yellow %>
+  On demand yearly                           <%= @f.format_price(@r.analyzer.yearly_overages_price, 20).yellow %>
+  Commit prepay one time fee                 <%= @f.format_price(@r.commit.upfront_price, 20).green %>
+  Reserve yearly                             <%= @f.format_price(@r.commit.yearly_price, 20).green %>
                                                       <%= "___________".cyan %>
   Total                                      <%= @f.format_price(@r.analyzer.yearly_total, 20).cyan %>
 <%- else -%>
-  On Demand Yearly                           <%= @f.format_price(@r.analyzer.yearly_full_price, 20).cyan %>
+  On demand yearly                           <%= @f.format_price(@r.analyzer.yearly_full_price, 20).cyan %>
 <%- end -%>
+<%- if @r.reserve? -%>
+
+YEARLY RESERVE SAVINGS:
+  Savings due to reserved pricing            <%= @f.format_price(@r.analyzer.yearly_savings, 20).green %>
+  Savings %                                  <%= sprintf("%19d", @r.analyzer.yearly_savings_percent).green + '%'.green %>
+<%- end -%>
+<%= SEPARATOR %>
 
 ASCII
 

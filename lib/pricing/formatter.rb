@@ -16,7 +16,7 @@ module Joyent
         end
 
         def monthly_price(flavor)
-          monthly_from_hourly(config[flavor] || 0)
+          monthly_from_hourly(config.cost(flavor) || 0)
         end
 
         def format_price(value, width = 0)
