@@ -1,7 +1,11 @@
 ---
 :date: '2014-03-23 21:51:04 -0700'
 :pricing:
-  g3-standard-0.625-smartos: 0.02
-  g3-standard-30-kvm: 0.96
-  g3-standard-48-smartos: 1.536
-  g3-standard-64-smartos: 2.048
+  g3-standard-0.625-smartos:
+    :cost: 0.02
+  g3-standard-30-kvm:
+    :cost: 0.96
+  g3-standard-48-smartos:
+    :cost: 1.536
+  g3-standard-64-smartos:
+    :cost: 2.048

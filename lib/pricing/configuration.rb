@@ -40,7 +40,7 @@ module Joyent::Cloud::Pricing
     end
 
     def [] flavor
-      self.config[flavor.to_sym]
+      self.config[flavor.to_sym][:cost]
     end
 
     def monthly flavor

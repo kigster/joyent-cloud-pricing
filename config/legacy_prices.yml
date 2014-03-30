@@ -1,3 +1,6 @@
-:g3-standard-8-smartos: 0.26
-:g3-highcpu-8-smartos: 0.58
-:g3-standard-0.5-smartos: 0.016
+:g3-standard-8-smartos:
+  :cost: 0.26
+:g3-highcpu-8-smartos:
+  :cost: 0.58
+:g3-standard-0.5-smartos:
+  :cost: 0.016

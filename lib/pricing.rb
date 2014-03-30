@@ -1,5 +1,5 @@
-require "pricing/version"
-require "pricing/symbolize_keys"
+require 'pricing/version'
+require 'pricing/symbolize_keys'
 
 module Joyent
   module Cloud
@@ -15,10 +15,11 @@ module Joyent
   end
 end
 
-require "pricing/helpers"
-require "pricing/configuration"
-require "pricing/scraper"
-require "pricing/formatter"
-require "pricing/commit"
-require "pricing/analyzer"
-require "pricing/reporter"
+require 'pricing/flavor'
+require 'pricing/helpers'
+require 'pricing/configuration'
+require 'pricing/scraper'
+require 'pricing/formatter'
+require 'pricing/commit'
+require 'pricing/analyzer'
+require 'pricing/reporter'

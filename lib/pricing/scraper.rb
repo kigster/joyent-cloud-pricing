@@ -12,15 +12,14 @@ module Joyent::Cloud::Pricing
     end
 
     class Parser < Struct.new(:doc)
-      class PriceTuple < Struct.new(:os, :cost, :flavor); end
 
       def result
         config = Hash.new
-        self.doc.css("ul.full-specs").each do |ul|
-          tuple = extract_price(ul)
-          next if tuple.cost == "N/A"
-          next if tuple.flavor =~ /kvm/ && tuple.os !~ /linux/i
-          config[tuple.flavor]= tuple.cost.to_f
+        self.doc.css('ul.full-specs').each do |ul|
+          flavor = extract_price(ul)
+          next if flavor.cost.nil?
+          next if flavor.name =~ /kvm/ && flavor.os !~ /linux/i
+          config[flavor.name]= flavor.to_h
         end
         config
       end
@@ -30,8 +29,14 @@ module Joyent::Cloud::Pricing
       def extract_price(ul)
         lis = ul.css("span").map(&:content)
         # grab last two <li> elements in each <ul class="full-spec"> block
-        #PriceTuple.new(lis[-3], lis[-2].gsub(/^\$/, ''),  lis[-1])
-        PriceTuple.new(lis[-3], lis[-2].gsub(/^\$/, ''),  lis[-1])
+        # and first few for cpu/ram/disk
+        # note: this obviously depends on Joyent website markup and is subject to break.
+        Flavor.new(lis[-1], # flavor
+                   os: lis[-3],
+                   cost: lis[-2].gsub(/^\$/, ''),
+                   ram: lis[0],
+                   cpus: lis[1],
+                   disk: lis[2])
       end
     end
   end

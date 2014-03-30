@@ -2,19 +2,19 @@ require 'spec_helper'
 
 describe 'Joyent::Cloud::Pricing::Configuration' do
   expected_prices = {
-      "g3-standard-48-smartos" => 1.536,
-      "g3-standard-0.625-smartos" => 0.02,
-      "g3-standard-30-kvm" => 0.960,
-      "g3-standard-8-smartos" => 0.26,
-      "g3-highcpu-8-smartos" => 0.58,
-      "g3-standard-0.5-smartos" => 0.016
+      'g3-standard-48-smartos' => 1.536,
+      'g3-standard-0.625-smartos' => 0.02,
+      'g3-standard-30-kvm' => 0.960,
+      'g3-standard-8-smartos' => 0.26,
+      'g3-highcpu-8-smartos' => 0.58,
+      'g3-standard-0.5-smartos' => 0.016
   }
 
   let(:config) {
     Joyent::Cloud::Pricing::Configuration.from_yaml 'spec/fixtures/pricing.yml'
   }
 
-  context "#from_yaml" do
+  context '#from_yaml' do
     expected_prices.keys.each do |flavor|
       it "should load pricing for #{flavor}" do
         expect(config[flavor]).to eql(expected_prices[flavor])
@@ -22,8 +22,8 @@ describe 'Joyent::Cloud::Pricing::Configuration' do
     end
   end
 
-  context "#instance" do
-    it "should be able to create new instance, but remember the last once" do
+  context '#instance' do
+    it 'should be able to create new instance, but remember the last once' do
       c1 = Joyent::Cloud::Pricing::Configuration.from_yaml 'spec/fixtures/pricing.yml'
       c2 = Joyent::Cloud::Pricing::Configuration.from_yaml 'spec/fixtures/pricing.yml'
 
@@ -31,7 +31,7 @@ describe 'Joyent::Cloud::Pricing::Configuration' do
       expect(Joyent::Cloud::Pricing::Configuration.instance).not_to eql(c1)
     end
 
-    it "should have instance set" do
+    it 'should have instance set' do
       expect(Joyent::Cloud::Pricing::Configuration.instance).not_to be_nil
     end
   end
