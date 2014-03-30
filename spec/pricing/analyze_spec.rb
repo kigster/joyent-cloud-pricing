@@ -70,8 +70,8 @@ describe 'Joyent::Cloud::Pricing::Analyze' do
                                               })
   end
 
-  it '#excess_monthly_price' do
-    expect(analyzer.excess_monthly_price).to eql( 6432.48 )
+  it '#monthly_overages_price' do
+    expect(analyzer.monthly_overages_price).to eql( 6432.48 )
   end
 
   it '#over_reserved_zone_list' do

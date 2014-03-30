@@ -30,29 +30,48 @@ module Joyent::Cloud::Pricing
     end
 
     # Excess zones cost this much
-    def excess_monthly_price
+    def monthly_overages_price
       monthly_full_price_for(excess_zone_list)
     end
 
     # Monthly for all of the commits
-    def commit_monthly_price
+    def monthly_commit_price
       commit.monthly_price
     end
 
     # Commits + excess non reserved zones
-    def total_monthly_price
-      excess_monthly_price + commit_monthly_price
+    def monthly_total_price
+      monthly_overages_price + monthly_commit_price
     end
 
     def upfront
       commit.upfront
     end
 
-
     def monthly_full_price_for zones
       total_price_for zones do |flavor|
         pricing.monthly(flavor)
       end
+    end
+
+    def yearly_overages_price
+      monthly_overages_price * 12
+    end
+
+    def yearly_full_price
+      monthly_full_price * 12
+    end
+
+    def yearly_total
+      yearly_overages_price + commit.yearly_price
+    end
+
+    def yearly_savings
+      yearly_full_price - yearly_total
+    end
+
+    def yearly_savings_percent
+      100 * (yearly_full_price - yearly_total) / yearly_full_price
     end
 
     private

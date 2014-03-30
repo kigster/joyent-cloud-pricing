@@ -113,7 +113,7 @@ flavors = %w(
 commit   = Joyent::Cloud::Pricing::Commit.from_yaml 'my_company/config/joyent-commit-pricing.yml'
 analyzer = Joyent::Cloud::Pricing::Analyzer.new(commit, flavors)
 
-analyzer.excess_monthly_price     # => monthly $$ for instances in excess of reserve
+analyzer.monthly_overages_price     # => monthly $$ for instances in excess of reserve
 analyzer.over_reserved_zone_list  # => list of zones in reserve, but not in reality
 ```
 
@@ -124,46 +124,48 @@ reserve discounts.
 
 ```ruby
 current_zone_list = %w(g3-highcpu-8-smartos g3-highcpu-8-smartos ... )
-reporter = Joyent::Cloud::Pricing::Reporter.new('config/reserve-commit.yml', current_zone_list)
+reporter          = Joyent::Cloud::Pricing::Reporter.new('config/reserve-commit.yml', current_zone_list)
+
 puts reporter.render
 ```
 
 Example output with commit pricing used:
 
-```bash
-
-SUMMARY:
-  Total # of zones                         :                  123
-  Total # of reserved zones                :                   98
-  Total # of reserved but WASTED zones     :                    0
-  Reserve Pricing Term/Duration (years)    :                    1
-
-ONE TIME:
-  Reserve Pricing Upfront Payments         :          $211,717.18
-
-MONTHLY:
-  Monthly Cost of Reserve Pricing Zones    :           $12,457.51
-  On Demand Resources Cost                 :           $23,679.68
-  Total Monthly (reserve + on demand)      :           $41,087.19
-
-YEARLY TOTALS:
-  With reserve discounts                   :          $331,607.30
-  Without reserve discounts                :          $926,224.00
-  Savings %                                :                  41%
-
-UNRESERVED FLAVORS MONTHLY COST
-  9 x g3-highmemory-68.375-smartos         :           $10,562.40
-  1 x g3-highmemory-256-smartos-cc         :            $4,393.44
-  6 x g3-standard-7.5-smartos              :            $1,036.80
-  1 x g3-highmemory-34.25-smartos          :              $588.24
-  4 x g3-highcpu-1.75-kvm                  :              $365.76
-  4 x g3-standard-0.5-smartos              :               $46.08
-  1 x g3-standard-0.625-smartos            :               $14.40
 ```
+ZONE COUNTS:
+  Total # of zones                                             33
+  Total # of reserved zones                                    27
+  Total # of reserved but absent zones                          1
+  Reserve Pricing Term/Duration (years)                         1
+.................................................................
 
-## Command Line Tools
+RESERVE UPFRONT COST:
+  Reserve Pricing Upfront Payments                     $98,600.00
+.................................................................
 
-TBD.
+MONTHLY COSTS:
+  List of on-demand flavors by price
+  2 x g3-highcpu-32-smartos-cc                          $3,339.36
+  2 x g3-highcpu-16-smartos                             $1,670.40
+  2 x g3-highcpu-7-smartos                                $731.52
+  1 x g3-standard-30-smartos                              $691.20
+                                                      ___________
+  On Demand Monthly                                     $6,432.48
+
+  Zones Under Reserve Pricing                           $8,720.00
+                                                      ___________
+  Total                                                $15,152.48
+.................................................................
+
+YEARLY COSTS:
+  Savings due to Reserved Pricing                     $145,522.24
+  Savings %                                                   34%
+
+  Reserve Yearly                                      $203,240.00
+  On Demand Yearly                                     $77,189.76
+                                                      ___________
+  Total                                               $280,429.76
+```
 
 ## Contributing
 
