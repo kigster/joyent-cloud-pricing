@@ -99,8 +99,8 @@ MONTHLY COSTS:
 YEARLY COSTS:
 <%- if @r.reserve? -%>
   On demand yearly                           <%= @f.format_price(@r.analyzer.yearly_overages_price, 20).yellow %>
-  Commit prepay one time fee                 <%= @f.format_price(@r.commit.upfront_price, 20).green %>
-  Reserve yearly                             <%= @f.format_price(@r.commit.yearly_price, 20).green %>
+  Reserve prepay one time fee                <%= @f.format_price(@r.commit.upfront_price, 20).green %>
+  Reserve monthly fees                       <%= @f.format_price(@r.commit.monthly_price * 12, 20).green %>
                                                       <%= "___________".cyan %>
   Total                                      <%= @f.format_price(@r.analyzer.yearly_total, 20).cyan %>
 <%- else -%>
