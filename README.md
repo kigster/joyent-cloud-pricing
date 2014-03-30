@@ -70,7 +70,7 @@ Joyent::Cloud::Pricing::Configuration.instance["g3-standard-48-smartos"]
 
 ## Analysis of Commit Pricing
 
-*IMPORTANT!*: please note that prices specified in this sample commit configuration
+_DISCLAIMER_: please note that prices specified in this sample commit configuration
 are completely arbitrary and have no relationship to any actual discounts issued by Joyent, Inc.
 
 Reserve pricing is meant to be defined by a YAML file, outside of the gem folder,
@@ -184,6 +184,12 @@ YEARLY COSTS:
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Disclaimer
+
+This gem is provided as a convenience tool in understanding and comparing cloud pricing. No warranties,
+explicit or implied, are made in relation to correctness or accuracy of the calculations provided by this
+library. Use at your own risk.
 
 ## Author
 
