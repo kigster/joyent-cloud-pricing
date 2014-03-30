@@ -146,35 +146,37 @@ ZONE COUNTS:
   Total # of zones                                             33
   Total # of reserved zones                                    27
   Total # of reserved but absent zones                          1
-  Reserve Pricing Term/Duration (years)                         1
-.................................................................
 
-RESERVE UPFRONT COST:
-  Reserve Pricing Upfront Payments                     $98,600.00
+  Resources in use:      Reserved       On-Demand           Total
+           CPUs               384             118             494
+           RAM               828G            140G            907G
+           DISK               23T              5T             27T
 .................................................................
 
 MONTHLY COSTS:
-  List of on-demand flavors by price
+  List of on-demand flavors by price (in excess of reserve)
   2 x g3-highcpu-32-smartos-cc                          $3,339.36
   2 x g3-highcpu-16-smartos                             $1,670.40
   2 x g3-highcpu-7-smartos                                $731.52
   1 x g3-standard-30-smartos                              $691.20
                                                       ___________
-  On Demand Monthly                                     $6,432.48
-
-  Zones Under Reserve Pricing                           $8,720.00
+  On demand monthly                                     $6,432.48
+  Zones under reserve pricing                           $8,720.00
                                                       ___________
   Total                                                $15,152.48
 .................................................................
 
 YEARLY COSTS:
-  Savings due to Reserved Pricing                     $145,522.24
-  Savings %                                                   34%
-
-  Reserve Yearly                                      $203,240.00
-  On Demand Yearly                                     $77,189.76
+  On demand yearly                                     $77,189.76
+  Reserve prepay one time fee                          $98,600.00
+  Reserve monthly fees                                $104,640.00
                                                       ___________
   Total                                               $280,429.76
+
+YEARLY RESERVE SAVINGS:
+  Savings due to reserved pricing                     $145,522.24
+  Savings %                                                   34%
+.................................................................
 ```
 
 ## Contributing
@@ -193,4 +195,4 @@ library. Use at your own risk.
 
 ## Author
 
-Konstantin Gredeskoul, [@kig on twitter](http://twitter.com/kig), [@kigster on github](http://github.com/kigster)
+* Konstantin Gredeskoul, [@kig on twitter](http://twitter.com/kig), [@kigster on github](http://github.com/kigster)
