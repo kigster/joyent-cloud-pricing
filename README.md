@@ -70,8 +70,11 @@ Joyent::Cloud::Pricing::Configuration.instance["g3-standard-48-smartos"]
 
 ## Analysis of Commit Pricing
 
+*IMPORTANT!*: please note that prices specified in this sample commit configuration
+are completely arbitrary and have no relationship to any actual discounts issued by Joyent, Inc.
+
 Reserve pricing is meant to be defined by a YAML file, outside of the gem folder,
-somewhere on the file system. File looks like this:
+somewhere on the file system. File looks like this.
 
 ```yaml
 defaults: &defaults
@@ -123,8 +126,15 @@ This module is used by ```knife joyent server price``` plugin to calculate prici
 reserve discounts.
 
 ```ruby
-current_zone_list = %w(g3-highcpu-8-smartos g3-highcpu-8-smartos ... )
-reporter          = Joyent::Cloud::Pricing::Reporter.new('config/reserve-commit.yml', current_zone_list)
+current_zone_list = %w(
+                       g3-highcpu-8-smartos
+                       g3-highcpu-8-smartos
+                       # ....
+                      )
+
+reporter = Joyent::Cloud::Pricing::Reporter.new(
+                'config/reserve-commit.yml',
+                 current_zone_list)
 
 puts reporter.render
 ```
