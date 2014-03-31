@@ -67,7 +67,8 @@ Full price is stored in the configuration instance.
 c = Joyent::Cloud::Pricing::Configuration.instance
 f = c.flavor "g3-highmemory-34.25-kvm"
 f.to_h
-# => {:name=>"g3-highmemory-34.25-kvm", :os=>"Linux", :cost=>0.817, :cpus=>4.0, :disk=>843, :ram=>34.25}
+# => {:name=>"g3-highmemory-34.25-kvm", :os=>"Linux",
+      :cost=>0.817, :cpus=>4.0, :disk=>843, :ram=>34.25}
 f.name
 # => "g3-highmemory-34.25-kvm"
 ```
@@ -130,13 +131,9 @@ This module is used by ```knife joyent server price``` plugin to calculate prici
 reserve discounts.
 
 ```ruby
-current_zone_list = %w(
-                       g3-highcpu-8-smartos
-                       g3-highcpu-8-smartos
-                       # ....
-                      )
+current_zone_list = %w(g3-highcpu-8-smartos g3-highcpu-8-smartos )
 
-reporter = Joyent::Cloud::Pricing::Reporter.new(
+reporter          = Joyent::Cloud::Pricing::Reporter.new(
                       'config/reserve-commit.yml',
                        current_zone_list)
 
@@ -145,7 +142,7 @@ puts reporter.render
 
 Example output with commit pricing used:
 
-```bash
+```
 ZONE COUNTS:
   Total # of zones                                             33
   Total # of reserved zones                                    27
