@@ -68,15 +68,15 @@ c = Joyent::Cloud::Pricing::Configuration.instance
 f = c.flavor "g3-highmemory-34.25-kvm"
 f.to_h
 # => {:name=>"g3-highmemory-34.25-kvm", :os=>"Linux",
-      :cost=>0.817, :cpus=>4.0, :disk=>843, :ram=>34.25}
+#     :cost=>0.817, :cpus=>4.0, :disk=>843, :ram=>34.25}
 f.name
 # => "g3-highmemory-34.25-kvm"
 ```
 
 ## Analysis of Commit Pricing
 
-_DISCLAIMER_: please note that prices specified in this sample commit configuration
-are completely arbitrary and have no relationship to any actual discounts issued by Joyent, Inc.
+>  DISCLAIMER: please note that prices specified in this sample commit configuration
+>  are completely arbitrary and have no relationship to any actual discounts issued by Joyent, Inc.
 
 Reserve pricing is meant to be defined by a YAML file, outside of the gem folder,
 somewhere on the file system. File looks like this.
@@ -180,6 +180,16 @@ YEARLY RESERVE SAVINGS:
 .................................................................
 ```
 
+## Usage with knife joyent
+
+This gem is integrated with latest version of [knife-joyent](https://github.com/joyent/knife-joyent) gem.
+
+Use it as follows:
+
+```
+knife joyent server pricing -z -r config/my-reserve-config.yml
+```
+
 ## Contributing
 
 1. Fork it
@@ -190,9 +200,9 @@ YEARLY RESERVE SAVINGS:
 
 ## Disclaimer
 
-This gem is provided as a convenience tool in understanding and comparing cloud pricing. No warranties,
-explicit or implied, are made in relation to correctness or accuracy of the calculations provided by this
-library. Use at your own risk.
+> This gem is provided as a convenience tool in understanding and comparing cloud pricing. No warranties,
+> explicit or implied, are made in relation to correctness or accuracy of the calculations provided by this
+> library. Use at your own risk.
 
 ## Author
 
