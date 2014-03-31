@@ -64,8 +64,12 @@ rake joyent:pricing:update
 Full price is stored in the configuration instance.
 
 ```ruby
-Joyent::Cloud::Pricing::Configuration.instance["g3-standard-48-smartos"]
-# => 1.536
+c = Joyent::Cloud::Pricing::Configuration.instance
+f = c.flavor "g3-highmemory-34.25-kvm"
+f.to_h
+# => {:name=>"g3-highmemory-34.25-kvm", :os=>"Linux", :cost=>0.817, :cpus=>4.0, :disk=>843, :ram=>34.25}
+f.name
+# => "g3-highmemory-34.25-kvm"
 ```
 
 ## Analysis of Commit Pricing
@@ -116,7 +120,7 @@ flavors = %w(
 commit   = Joyent::Cloud::Pricing::Commit.from_yaml 'my_company/config/joyent-commit-pricing.yml'
 analyzer = Joyent::Cloud::Pricing::Analyzer.new(commit, flavors)
 
-analyzer.monthly_overages_price     # => monthly $$ for instances in excess of reserve
+analyzer.monthly_overages_price   # => monthly $$ for instances in excess of reserve
 analyzer.over_reserved_zone_list  # => list of zones in reserve, but not in reality
 ```
 
@@ -133,15 +137,15 @@ current_zone_list = %w(
                       )
 
 reporter = Joyent::Cloud::Pricing::Reporter.new(
-                'config/reserve-commit.yml',
-                 current_zone_list)
+                      'config/reserve-commit.yml',
+                       current_zone_list)
 
 puts reporter.render
 ```
 
 Example output with commit pricing used:
 
-```
+```bash
 ZONE COUNTS:
   Total # of zones                                             33
   Total # of reserved zones                                    27
@@ -169,7 +173,7 @@ MONTHLY COSTS:
 YEARLY COSTS:
   On demand yearly                                     $77,189.76
   Reserve prepay one time fee                          $98,600.00
-  Reserve monthly fees                                $104,640.00
+  Reserve sum of all monthly fees                     $104,640.00
                                                       ___________
   Total                                               $280,429.76
 

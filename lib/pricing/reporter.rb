@@ -20,7 +20,7 @@ module Joyent::Cloud::Pricing
                 end
 
       @zones_in_use = zones_in_use
-      @analyzer = Joyent::Cloud::Pricing::Analyzer.new(@commit, @zones_in_use)
+      @analyzer  = Joyent::Cloud::Pricing::Analyzer.new(@commit, @zones_in_use)
       @formatter = Joyent::Cloud::Pricing::Formatter.new(pricing.config)
       @print_zone_list = true
     end
@@ -44,7 +44,9 @@ module Joyent::Cloud::Pricing
     end
 
     def excess_zones
-      zones = analyzer.excess_zone_counts.each_pair.map{|flavor, count| [ flavor, count, pricing.monthly(flavor) * count ]}.sort{|x,y| y[2] <=> x[2]}
+      zones = analyzer.excess_zone_counts.each_pair.
+          map{|flavor, count| [ flavor, count, pricing.monthly(flavor) * count ]}.
+          sort{|x,y| y[2] <=> x[2]}
       zones
     end
 
@@ -100,7 +102,7 @@ YEARLY COSTS:
 <%- if @r.reserve? -%>
   On demand yearly                           <%= @f.format_price(@r.analyzer.yearly_overages_price, 20).yellow %>
   Reserve prepay one time fee                <%= @f.format_price(@r.commit.upfront_price, 20).green %>
-  Reserve monthly fees                       <%= @f.format_price(@r.commit.monthly_price * 12, 20).green %>
+  Reserve sum of all monthly fees            <%= @f.format_price(@r.commit.monthly_price * 12, 20).green %>
                                                       <%= "___________".cyan %>
   Total                                      <%= @f.format_price(@r.analyzer.yearly_total, 20).cyan %>
 <%- else -%>

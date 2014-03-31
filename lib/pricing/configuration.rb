@@ -4,7 +4,7 @@ require_relative 'flavor'
 
 module Joyent::Cloud::Pricing
   class Configuration
-    @@lock = Mutex.new # just in case
+    @@lock = Mutex.new
 
     class << self
       def instance(reload = false)
