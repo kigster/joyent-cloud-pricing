@@ -35,6 +35,10 @@ module Joyent::Cloud::Pricing
       unknown_zone_counts.size > 0
     end
 
+    def have_over_reserved_zones?
+      over_reserved_zone_counts.size > 0
+    end
+
     # Non-discounted full price
     def monthly_full_price
       monthly_full_price_for(zone_counts)

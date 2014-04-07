@@ -65,6 +65,18 @@ module Joyent::Cloud::Pricing
       end
     end
 
+    def unknown_flavor_zone_list
+      analyzer.unknown_zone_counts.keys
+    end
+
+    def over_reserved_zone_list
+      analyzer.over_reserved_zone_counts.keys
+    end
+
+    def zone_list_for_print(list, format = '    %-40s')
+      list.map{|k| sprintf(format, k) }.join("\n")
+    end
+
     SEPARATOR = ('.' * 65).cyan
     PROPS_FORMAT= '%20d %20d %20d'
     REPORT_ASCII = <<ASCII
@@ -74,7 +86,8 @@ module Joyent::Cloud::Pricing
   were excluded from calculations. Add them to legacy_prices.yml.
 
   List of flavors with unknown properties:
-<%= @r.analyzer.unknown_zone_counts.keys.map{|k| sprintf("    %20s", k) }.join("\n").red %>
+  Total # of unrecognized flavor zones       <%= sprintf("%20d", @r.analyzer.unknown_zone_counts.keys.size).red %>
+<%= @r.zone_list_for_print(@r.unknown_flavor_zone_list).red %>
 <%= SEPARATOR %>
 
 <%- end -%>
@@ -82,8 +95,12 @@ ZONE COUNTS:
   Total # of zones                           <%= sprintf("%20d", @r.zones).cyan %>
 <%- if @r.reserve? -%>
   Total # of reserved zones                  <%= sprintf("%20d", @r.commit.total_zones).green %>
+<%- if @r.analyzer.have_over_reserved_zones? -%>
   Total # of reserved but absent zones       <%= value = sprintf("%20d", @r.analyzer.over_reserved_zone_counts.size || 0); value == "0" ? value.blue : value.red %>
+<%= @r.zone_list_for_print(@r.over_reserved_zone_list).red %>
 <%- end -%>
+<%- end -%>
+<%= SEPARATOR %>
 
   Resources in use:<%= sprintf('%14s %15s %15s', 'Reserved', 'On-Demand', 'Total') %>
            CPUs  <%= props = @r.zone_props_to_string(:cpus, 16); props[0].green + props[1].yellow + props[2].cyan %>
