@@ -3,6 +3,8 @@ ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 require 'rubygems'
 require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 require 'pricing'
+require 'coveralls'
+Coveralls.wear!
 
 # Dir['spec/support/**/*.rb'].each { |filename| require_relative "../#{filename}" }
 
