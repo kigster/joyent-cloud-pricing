@@ -24,6 +24,17 @@ module Joyent::Cloud::Pricing
       h
     end
 
+    # Zones with flavor that's not recognized, and therefore unknown
+    def unknown_zone_counts
+      h = {}
+      zone_counts.each_pair { |flavor, count|  h[flavor] = count if pricing.flavor(flavor).nil? }
+      h
+    end
+
+    def have_unknown_zones?
+      unknown_zone_counts.size > 0
+    end
+
     # Non-discounted full price
     def monthly_full_price
       monthly_full_price_for(zone_counts)
@@ -91,7 +102,8 @@ module Joyent::Cloud::Pricing
     def count_props(operation)
       results = [ zone_counts, excess_zone_counts, commit.flavor_counts ].map do |list|
         count_for_all list do |flavor|
-          pricing.flavor(flavor).send(operation)
+          f = pricing.flavor(flavor)
+          f.respond_to?(operation.to_sym) ? f.send(operation) : 0
         end
       end
       { total: results[0], unreserved: results[1], reserved: results[2] }

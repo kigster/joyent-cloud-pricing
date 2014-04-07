@@ -2,41 +2,44 @@ require 'spec_helper'
 
 describe 'Joyent::Cloud::Pricing::Analyzer' do
 
-  let(:flavors) { %w(
-    g3-highcpu-16-smartos
-    g3-highcpu-16-smartos
-    g3-standard-30-smartos
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-32-smartos-cc
-    g3-highcpu-7-smartos
-    g3-highcpu-7-smartos
-    g3-highio-60.5-smartos
-    g3-highio-60.5-smartos
-    g3-highio-60.5-smartos
-    g3-highio-60.5-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-    g3-highmemory-17.125-smartos
-  ) }
+  FLAVORS =  %w(
+      g3-highcpu-16-smartos
+      g3-highcpu-16-smartos
+      g3-standard-30-smartos
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-32-smartos-cc
+      g3-highcpu-7-smartos
+      g3-highcpu-7-smartos
+      g3-highio-60.5-smartos
+      g3-highio-60.5-smartos
+      g3-highio-60.5-smartos
+      g3-highio-60.5-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      g3-highmemory-17.125-smartos
+      some-unknown-flavor
+    )
+
+  let(:flavors) { FLAVORS }
   let(:commit) { Joyent::Cloud::Pricing::Commit.from_yaml 'spec/fixtures/commit.yml' }
   let(:analyzer) { Joyent::Cloud::Pricing::Analyzer.new(commit, flavors) }
 
@@ -53,7 +56,8 @@ describe 'Joyent::Cloud::Pricing::Analyzer' do
                                              :'g3-highcpu-7-smartos' => 2,
                                              :'g3-highio-60.5-smartos' => 4,
                                              :'g3-highmemory-17.125-smartos' => 12,
-                                             :'g3-standard-30-smartos' => 1
+                                             :'g3-standard-30-smartos' => 1,
+                                             :'some-unknown-flavor' => 1
                                             })
   end
 
@@ -73,7 +77,8 @@ describe 'Joyent::Cloud::Pricing::Analyzer' do
                                                  {:'g3-highcpu-16-smartos' => 2,
                                                   :'g3-highcpu-32-smartos-cc' => 2,
                                                   :'g3-highcpu-7-smartos' => 2,
-                                                  :'g3-standard-30-smartos' => 1
+                                                  :'g3-standard-30-smartos' => 1,
+                                                  :'some-unknown-flavor' => 1
                                                  })
     end
 
@@ -95,4 +100,11 @@ describe 'Joyent::Cloud::Pricing::Analyzer' do
       expect(analyzer.disk).to eql({total: 28655.0, unreserved: 5807.0, reserved: 24300.0})
     end
   end
+
+  context 'for unknown instances' do
+    it 'should return some-unknown-flavor' do
+      expect(analyzer.unknown_zone_counts).to eql({ :'some-unknown-flavor' => 1 })
+    end
+  end
+
 end

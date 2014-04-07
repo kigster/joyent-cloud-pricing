@@ -69,6 +69,15 @@ module Joyent::Cloud::Pricing
     PROPS_FORMAT= '%20d %20d %20d'
     REPORT_ASCII = <<ASCII
 
+<%- if @r.analyzer.have_unknown_zones? -%>
+  <%= "WARNING!".red %>: flavor list has values which were not recognized, and
+  were excluded from calculations. Add them to legacy_prices.yml.
+
+  List of flavors with unknown properties:
+<%= @r.analyzer.unknown_zone_counts.keys.map{|k| sprintf("    %20s", k) }.join("\n").red %>
+<%= SEPARATOR %>
+
+<%- end -%>
 ZONE COUNTS:
   Total # of zones                           <%= sprintf("%20d", @r.zones).cyan %>
 <%- if @r.reserve? -%>

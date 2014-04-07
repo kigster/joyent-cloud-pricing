@@ -36,6 +36,8 @@ describe 'Joyent::Cloud::Pricing::Reporter' do
     g3-highmemory-17.125-smartos
     g3-highmemory-17.125-smartos
     g3-highmemory-17.125-smartos
+    some-fake-flavor-without-pricing
+    some-fake-flavor-again
   ) }
   let(:commit) { Joyent::Cloud::Pricing::Commit.from_yaml 'spec/fixtures/commit.yml' }
   let(:reporter) { Joyent::Cloud::Pricing::Reporter.new(commit, flavors) }
