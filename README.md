@@ -54,15 +54,16 @@ Or install it yourself as:
 
 Most recent pricing structure is stored in the YAML file under ```config/joyent_pricing.yml```.
 
-To update this file, run provided rake task:
+To update this file using prices published on Joyent's website, run the provided rake
+task, and if YAML file changed, please feel free to submit a pull request.
 
 ```ruby
 rake joyent:pricing:update
 ```
 
-## Full Pricing
+### Full Pricing
 
-Full price is stored in the configuration instance.
+Full price is stored in the configuration instance and is read from YAML file.
 
 ```ruby
 c = Joyent::Cloud::Pricing::Configuration.instance
@@ -74,7 +75,7 @@ f.name
 # => "g3-highmemory-34.25-kvm"
 ```
 
-## Analysis of Commit Pricing
+### Analysis of Commit Pricing
 
 >  DISCLAIMER: please note that prices specified in this sample commit configuration
 >  are completely arbitrary and have no relationship to any actual discounts issued by Joyent, Inc.
@@ -126,7 +127,30 @@ analyzer.monthly_overages_price   # => monthly $$ for instances in excess of res
 analyzer.over_reserved_zone_list  # => list of zones in reserve, but not in reality
 ```
 
-## Reporter
+### Custom Pricing
+
+If you have some zones with flavors that are either old, or created specifically for you,
+they may not be known to this library.  If they are known to you, you can use the reserve
+pricing YAML file, and add a 'custom' section to it to define prices (and other attributes)
+for any of the custom flavors, as follows (note that the 'reserved' section is not required).
+
+```yaml
+defaults: &defaults
+    years: 1
+
+custom:
+  :flavor-just-for-me:
+    :cost: 1.22
+    :disk: 800
+    :ram: 96
+    :cpus: 32
+
+```
+
+The structure is the same as in the main file ```joyent_pricing.yml```, and the contents will
+simply be merged on top of Joyent's standard pricing, so you can even overwrite existing flavors.
+
+### Reporter
 
 This module is used by ```knife joyent server price``` plugin to calculate pricing with and without
 reserve discounts.
@@ -144,23 +168,28 @@ puts reporter.render
 Example output with commit pricing used:
 
 ```
+Joyent Pricing Calculator: https://github.com/kigster/joyent-cloud-pricing
+.................................................................
 ZONE COUNTS:
   Total # of zones                                             33
   Total # of reserved zones                                    27
-  Total # of reserved but absent zones                          1
+  Total # of reserved but absent flavors                        6
+      4 x g3-highmemory-68.375-smartos
+      2 x g3-highcpu-7-smartos
+.................................................................
 
   Resources in use:      Reserved       On-Demand           Total
            CPUs               384             118             494
            RAM               828G            140G            907G
            DISK               23T              5T             27T
-.................................................................
 
 MONTHLY COSTS:
   List of on-demand flavors by price (in excess of reserve)
-  2 x g3-highcpu-32-smartos-cc                          $3,339.36
-  2 x g3-highcpu-16-smartos                             $1,670.40
-  2 x g3-highcpu-7-smartos                                $731.52
-  1 x g3-standard-30-smartos                              $691.20
+
+      2 x g3-highcpu-32-smartos-cc                      $3,339.36
+      2 x g3-highcpu-16-smartos                         $1,670.40
+      2 x g3-highcpu-7-smartos                            $731.52
+      1 x g3-standard-30-smartos                          $691.20
                                                       ___________
   On demand monthly                                     $6,432.48
   Zones under reserve pricing                           $8,720.00
@@ -181,14 +210,18 @@ YEARLY RESERVE SAVINGS:
 .................................................................
 ```
 
-## Usage with knife joyent
+### Color
 
-This gem is integrated with latest version of [knife-joyent](https://github.com/joyent/knife-joyent) gem.
+You can turn off color output by setting ```NO_COLOR``` environment variable.
 
-Use it as follows:
+### Usage with knife joyent
+
+This gem is integrated into [knife-joyent](https://github.com/joyent/knife-joyent) gem.
+
+Use it with ```knife joyent``` as follows:
 
 ```
-knife joyent server pricing -z -r config/my-reserve-config.yml
+knife joyent server pricing -z -r config/my-reserve-config.yml [ --no-color ]
 ```
 
 ## Contributing

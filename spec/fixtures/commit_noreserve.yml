@@ -1,0 +1,6 @@
+defaults: &defaults
+    years: 1
+
+custom:
+  :some-fake-flavor-again:
+    :cost: 5.1

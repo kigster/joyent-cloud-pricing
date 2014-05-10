@@ -6,7 +6,7 @@ module Joyent::Cloud::Pricing
     class << self
       def from_yaml(filename = COMMIT_FILENAME)
         hash = YAML.load(File.read(filename))
-        new(hash['reserved'], hash['custom'])
+        new(hash['reserved'] || {}, hash['custom'])
       end
     end
 

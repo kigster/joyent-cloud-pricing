@@ -19,5 +19,5 @@ reserved:
     quantity: 5
 
 custom:
-  :some-fake-flavor-again:
+  :some-instance:
     :cost: 2.451
