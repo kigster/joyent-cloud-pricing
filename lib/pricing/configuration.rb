@@ -64,6 +64,10 @@ module Joyent::Cloud::Pricing
       end
     end
 
+    def merge(additional_pricing)
+      config.merge!(additional_pricing)
+    end
+
   end
 end
 

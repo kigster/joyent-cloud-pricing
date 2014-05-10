@@ -31,8 +31,18 @@ module Joyent::Cloud::Pricing
       h
     end
 
+    def unknown_zone_total
+      count_for_all(unknown_zone_counts) do |flavor|
+        1
+      end.to_i
+    end
+
     def have_unknown_zones?
       unknown_zone_counts.size > 0
+    end
+
+    def have_excess_zones?
+      excess_zone_counts.size > 0
     end
 
     def have_over_reserved_zones?

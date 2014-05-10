@@ -5,18 +5,22 @@ module Joyent::Cloud::Pricing
   class Commit
     class << self
       def from_yaml(filename = COMMIT_FILENAME)
-        new(YAML.load(File.read(filename))['reserved'])
+        hash = YAML.load(File.read(filename))
+        new(hash['reserved'], hash['custom'])
       end
     end
 
     # map of image names to prices
-    attr_accessor :reserves
+    attr_accessor :reserves, :custom
 
-    def initialize(hash = {})
+    def initialize(hash = {}, custom = nil)
       @config = hash.symbolize_keys
       self.reserves = {}
       @config.each_pair do |flavor, config|
         self.reserves[flavor] = Reserve.new(flavor, config)
+      end
+      if custom
+        Joyent::Cloud::Pricing::Configuration.instance.merge(custom)
       end
     end
 

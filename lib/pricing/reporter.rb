@@ -5,7 +5,7 @@ require 'colored'
 module Joyent::Cloud::Pricing
   class Reporter
 
-    attr_accessor :commit, :zones_in_use, :analyzer, :formatter, :print_zone_list
+    attr_accessor :commit, :zones_in_use, :analyzer, :formatter, :print_zone_list, :template
 
     def initialize(commit = COMMIT, zones_in_use = [])
       @commit = case commit
@@ -20,130 +20,100 @@ module Joyent::Cloud::Pricing
                 end
 
       @zones_in_use = zones_in_use
-      @analyzer  = Joyent::Cloud::Pricing::Analyzer.new(@commit, @zones_in_use)
+      @analyzer = Joyent::Cloud::Pricing::Analyzer.new(@commit, @zones_in_use)
       @formatter = Joyent::Cloud::Pricing::Formatter.new(pricing.config)
       @print_zone_list = true
+      @template = File.read(File.expand_path('../report.txt.erb', __FILE__))
     end
 
-    def render
+    def render(options = {})
+      disable_color if (options && options[:disable_color]) || ENV['NO_COLOR']
       @r = self
-      @f = formatter
-      ERB.new(REPORT_ASCII, 0, '-').result(binding)
-    end
-
-    def reserve?
-      commit.reserves.size > 0
-    end
-
-    def zones
-      zones_in_use.size
+      ERB.new(template, 0, '-').result(binding)
     end
 
     def pricing
       Joyent::Cloud::Pricing::Configuration.instance
     end
 
-    def excess_zones
-      zones = analyzer.excess_zone_counts.each_pair.
-          map{|flavor, count| [ flavor, count, pricing.monthly(flavor) * count ]}.
-          sort{|x,y| y[2] <=> x[2]}
-      zones
+    # Various formatting helpers follow below
+    # Note that we delegate to analyzer for majority of calls.
+    # Sorry about that method_missing :(
+
+    def method_missing(method, *args, &block)
+      if @analyzer.respond_to?(method)
+        @analyzer.send(method, *args, &block)
+      else
+        super
+      end
     end
 
-    def excess_zone_list
-      excess_zones.map do |tuple|
+    def format_price *args
+      @formatter.format_price *args
+    end
+
+    def have_commit_pricing?
+      commit.reserves.size > 0
+    end
+
+    def excess_zones_for_print
+      zones_for_print(zone_counts_to_list(analyzer.excess_zone_counts), :yellow)
+    end
+
+    def over_reserved_zones_for_print
+      zones_for_print(analyzer.over_reserved_zone_counts)
+    end
+
+    def unknown_zones_for_print
+      zone_list_for_print(analyzer.unknown_zone_counts.keys)
+    end
+
+    def zones_for_print(zone_list, color = nil)
+      zone_list.map do |tuple|
         flavor, count, monthly = tuple
-        sprintf(" %2d x %-36s   %20s",
-          count, flavor, formatter.format_price(monthly, 20).yellow)
+        price = formatter.format_price(monthly, 16)
+        price = price.send(color) if color
+        sprintf("     %2d x %-36s   %16s", count, flavor, price)
       end.join("\n")
+    end
+
+    def zone_list_for_print(list, format = '    %-40s')
+      list.map { |k| sprintf(format, k) }.join("\n")
+    end
+
+    def zone_counts_to_list zone_count_hash
+      zones = zone_count_hash.each_pair.
+          map { |flavor, count| [flavor, count, pricing.monthly(flavor) * count] }.
+          sort { |x, y| y[2] <=> x[2] }
+      zones
     end
 
     def zone_props_to_string(prop_type, width, suffix = '', divide_by = 1)
       props = analyzer.send(prop_type)
-      [ props[:reserved], props[:unreserved], props[:total] ].map do |value|
+      [props[:reserved], props[:unreserved], props[:total]].map do |value|
         sprintf("%#{width}d#{suffix}", value / divide_by)
       end
     end
 
-    def unknown_flavor_zone_list
-      analyzer.unknown_zone_counts.keys
+    private
+
+    def disable_color
+      String.instance_eval do
+        %w(
+          black
+          red
+          green
+          yellow
+          blue
+          magenta
+          cyan
+          white
+        ).each do |color|
+            define_method(color) do
+              self
+            end
+        end
+      end
     end
-
-    def over_reserved_zone_list
-      analyzer.over_reserved_zone_counts.keys
-    end
-
-    def zone_list_for_print(list, format = '    %-40s')
-      list.map{|k| sprintf(format, k) }.join("\n")
-    end
-
-    SEPARATOR = ('.' * 65).cyan
-    PROPS_FORMAT= '%20d %20d %20d'
-    REPORT_ASCII = <<ASCII
-
-<%- if @r.analyzer.have_unknown_zones? -%>
-  <%= "WARNING!".red %>: flavor list has values which were not recognized, and
-  were excluded from calculations. Add them to legacy_prices.yml.
-
-  List of flavors with unknown properties:
-  Total # of unrecognized flavor zones       <%= sprintf("%20d", @r.analyzer.unknown_zone_counts.keys.size).red %>
-<%= @r.zone_list_for_print(@r.unknown_flavor_zone_list).red %>
-<%= SEPARATOR %>
-
-<%- end -%>
-ZONE COUNTS:
-  Total # of zones                           <%= sprintf("%20d", @r.zones).cyan %>
-<%- if @r.reserve? -%>
-  Total # of reserved zones                  <%= sprintf("%20d", @r.commit.total_zones).green %>
-<%- if @r.analyzer.have_over_reserved_zones? -%>
-  Total # of reserved but absent zones       <%= value = sprintf("%20d", @r.analyzer.over_reserved_zone_counts.size || 0); value == "0" ? value.blue : value.red %>
-<%= @r.zone_list_for_print(@r.over_reserved_zone_list).red %>
-<%- end -%>
-<%- end -%>
-<%= SEPARATOR %>
-
-  Resources in use:<%= sprintf('%14s %15s %15s', 'Reserved', 'On-Demand', 'Total') %>
-           CPUs  <%= props = @r.zone_props_to_string(:cpus, 16); props[0].green + props[1].yellow + props[2].cyan %>
-           RAM   <%= props = @r.zone_props_to_string(:ram,  15, 'G'); props[0].green + props[1].yellow + props[2].cyan %>
-           DISK  <%= props = @r.zone_props_to_string(:disk, 15, 'T', 1024); props[0].green + props[1].yellow + props[2].cyan %>
-<%= SEPARATOR %>
-
-MONTHLY COSTS:
-<%- if @r.print_zone_list -%>
-  List of on-demand flavors by price <%= @r.reserve? ? "(in excess of reserve)" : "" %>
-<%= @r.excess_zone_list %>
-                                                      <%= "___________".yellow %>
-<%- end -%>
-  On demand monthly                          <%= @f.format_price(@r.analyzer.monthly_overages_price, 20).yellow %>
-<%- if @r.reserve? -%>
-  Zones under reserve pricing                <%= @f.format_price(@r.commit.monthly_price, 20).green %>
-<%- end -%>
-<%- if @r.reserve? -%>
-                                                      <%= "___________".cyan %>
-  Total                                      <%= @f.format_price(@r.analyzer.monthly_total_price, 20).cyan %>
-<%- end -%>
-<%= SEPARATOR %>
-
-YEARLY COSTS:
-<%- if @r.reserve? -%>
-  On demand yearly                           <%= @f.format_price(@r.analyzer.yearly_overages_price, 20).yellow %>
-  Reserve prepay one time fee                <%= @f.format_price(@r.commit.upfront_price, 20).green %>
-  Reserve sum of all monthly fees            <%= @f.format_price(@r.commit.monthly_price * 12, 20).green %>
-                                                      <%= "___________".cyan %>
-  Total                                      <%= @f.format_price(@r.analyzer.yearly_total, 20).cyan %>
-<%- else -%>
-  On demand yearly                           <%= @f.format_price(@r.analyzer.yearly_full_price, 20).cyan %>
-<%- end -%>
-<%- if @r.reserve? -%>
-
-YEARLY RESERVE SAVINGS:
-  Savings due to reserved pricing            <%= @f.format_price(@r.analyzer.yearly_savings, 20).green %>
-  Savings %                                  <%= sprintf("%19d", @r.analyzer.yearly_savings_percent).green + '%'.green %>
-<%- end -%>
-<%= SEPARATOR %>
-
-ASCII
-
   end
-
 end

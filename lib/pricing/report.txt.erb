@@ -1,0 +1,66 @@
+<%- separator = ('.' * 65).cyan -%>
+Joyent Pricing Calculator: https://github.com/kigster/joyent-cloud-pricing
+<%= separator %>
+<%- if have_unknown_zones? -%>
+  <%= "WARNING!".red %>: Some 'flavors' in your list were not recognized, and
+  were excluded from calculations. You could add them to the "custom"
+  section of your reserve pricing file, and specify their cost.
+
+  Total # of zones with unknown flavors:     <%= sprintf("%20d", unknown_zone_total).red %>
+  List of unknown flavors below:
+
+<%= unknown_zones_for_print.red %>
+<%= separator %>
+
+<%- end -%>
+ZONE COUNTS:
+  Total # of zones                           <%= sprintf("%20d", zones_in_use.size).cyan %>
+<%- if have_commit_pricing? -%>
+  Total # of reserved zones                  <%= sprintf("%20d", commit.total_zones).green %>
+<%-     if have_over_reserved_zones? -%>
+  Total # of reserved but absent flavors     <%= value = sprintf("%20d", over_reserved_zone_counts.size || 0); value == "0" ? value.blue : value.red %>
+<%= over_reserved_zones_for_print.magenta %>
+<%-     end -%>
+<%- end -%>
+<%= separator %>
+
+  Resources in use:<%= sprintf('%14s %15s %15s', 'Reserved', 'On-Demand', 'Total') %>
+           CPUs  <%= props = zone_props_to_string(:cpus, 16); props[0].green + props[1].yellow + props[2].cyan %>
+           RAM   <%= props = zone_props_to_string(:ram,  15, 'G'); props[0].green + props[1].yellow + props[2].cyan %>
+           DISK  <%= props = zone_props_to_string(:disk, 15, 'T', 1024); props[0].green + props[1].yellow + props[2].cyan %>
+<%= separator %>
+
+MONTHLY COSTS:
+<%- if print_zone_list -%>
+  List of on-demand flavors by price <%= have_commit_pricing? ? "(in excess of reserve)" : "" %>
+
+<%= excess_zones_for_print %>
+                                                      <%= "___________".yellow %>
+<%- end -%>
+  On demand monthly                          <%= format_price(monthly_overages_price, 20).yellow %>
+<%- if have_commit_pricing? -%>
+  Zones under reserve pricing                <%= format_price(commit.monthly_price, 20).green %>
+<%- end -%>
+<%- if have_commit_pricing? -%>
+                                                      <%= "___________".cyan %>
+  Total                                      <%= format_price(monthly_total_price, 20).cyan %>
+<%- end -%>
+<%= separator %>
+
+YEARLY COSTS:
+<%- if have_commit_pricing? -%>
+  On demand yearly                           <%= format_price(yearly_overages_price, 20).yellow %>
+  Reserve prepay one time fee                <%= format_price(commit.upfront_price, 20).green %>
+  Reserve sum of all monthly fees            <%= format_price(commit.monthly_price * 12, 20).green %>
+                                                      <%= "___________".cyan %>
+  Total                                      <%= format_price(yearly_total, 20).cyan %>
+<%- else -%>
+  On demand yearly                           <%= format_price(yearly_full_price, 20).cyan %>
+<%- end -%>
+<%- if have_commit_pricing? -%>
+
+YEARLY RESERVE SAVINGS:
+  Savings due to reserved pricing            <%= format_price(yearly_savings, 20).green %>
+  Savings %                                  <%= sprintf("%19d", yearly_savings_percent).green + '%'.green %>
+<%- end -%>
+<%= separator %>

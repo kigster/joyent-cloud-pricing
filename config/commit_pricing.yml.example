@@ -12,3 +12,9 @@ reserved:
     prepay: 800.00
     monthly: 60
     number: 12
+
+custom:
+  :my-special-custom-flavor-pricing-hourly:
+    :cost: 2.451
+  :another-flavor-just-for-me:
+    :cost: 1.22

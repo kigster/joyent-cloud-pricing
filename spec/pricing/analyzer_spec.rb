@@ -37,6 +37,8 @@ describe 'Joyent::Cloud::Pricing::Analyzer' do
       g3-highmemory-17.125-smartos
       g3-highmemory-17.125-smartos
       some-unknown-flavor
+      some-other-unknown-flavor
+      some-other-unknown-flavor
     )
 
   let(:flavors) { FLAVORS }
@@ -57,7 +59,8 @@ describe 'Joyent::Cloud::Pricing::Analyzer' do
                                              :'g3-highio-60.5-smartos' => 4,
                                              :'g3-highmemory-17.125-smartos' => 12,
                                              :'g3-standard-30-smartos' => 1,
-                                             :'some-unknown-flavor' => 1
+                                             :'some-unknown-flavor' => 1,
+                                             :'some-other-unknown-flavor' => 2
                                             })
   end
 
@@ -78,7 +81,8 @@ describe 'Joyent::Cloud::Pricing::Analyzer' do
                                                   :'g3-highcpu-32-smartos-cc' => 2,
                                                   :'g3-highcpu-7-smartos' => 2,
                                                   :'g3-standard-30-smartos' => 1,
-                                                  :'some-unknown-flavor' => 1
+                                                  :'some-unknown-flavor' => 1,
+                                                  :'some-other-unknown-flavor' => 2
                                                  })
     end
 
@@ -103,7 +107,9 @@ describe 'Joyent::Cloud::Pricing::Analyzer' do
 
   context 'for unknown instances' do
     it 'should return some-unknown-flavor' do
-      expect(analyzer.unknown_zone_counts).to eql({ :'some-unknown-flavor' => 1 })
+      expect(analyzer.unknown_zone_counts).to eql({ :'some-unknown-flavor' => 1,
+                                                    :'some-other-unknown-flavor' => 2 })
+      expect(analyzer.unknown_zone_total).to eql(3)
     end
   end
 

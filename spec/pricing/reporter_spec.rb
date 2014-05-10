@@ -55,17 +55,25 @@ describe 'Joyent::Cloud::Pricing::Reporter' do
   end
 
   context '#render' do
-    it 'should propertly render an ERB template' do
-      output = reporter.render
-      expect(output).to_not be_nil
+    context 'with existing commit pricing' do
+      it 'should propertly render an ERB template' do
+        output = reporter.render
+        STDOUT.puts output if ENV['DEBUG_REPORTER']
+        expect(output).to_not be_nil
+        expect(output).to include('MONTHLY COSTS')
+        expect(output).to include('YEARLY RESERVE SAVINGS')
+      end
     end
 
-    context 'blank commit configuration' do
+    context 'without any commit configuration' do
       let(:commit) { Joyent::Cloud::Pricing::Commit.new }
       it 'should still properly render an ERB template' do
         expect(commit.reserves.size).to eql(0)
         output = reporter.render
+        STDOUT.puts output if ENV['DEBUG_REPORTER']
         expect(output).to_not be_nil
+        expect(output).to_not include('YEARLY RESERVE SAVINGS')
+        expect(output).to include('some-fake-flavor-without-pricing')
       end
     end
 

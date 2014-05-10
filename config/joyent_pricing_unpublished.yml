@@ -1,8 +1,19 @@
 :g3-standard-8-smartos:
   :cost: 0.26
+  :ram: 8.0
+  :cpus: 4.0
+  :disk: 738
 :g3-highcpu-8-smartos:
   :cost: 0.58
+  :ram: 8.0
+  :cpus: 8.0
+  :disk: 738
 :g3-standard-0.5-smartos:
   :cost: 0.016
+  :ram: 0.5
+  :cpus: 0.5
 :g3-highmemory-96-smartos:
   :cost: 2.451
+  :ram: 7.5
+  :cpus: 32.0
+  :disk: 3100

@@ -6,7 +6,7 @@ module Joyent
     module Pricing
 
       PRICING_FILENAME  = File.expand_path('../../config/joyent_pricing.yml', __FILE__)
-      LEGACY_FILENAME   = File.expand_path('../../config/legacy_prices.yml', __FILE__)
+      LEGACY_FILENAME   = File.expand_path('../../config/joyent_pricing_unpublished.yml', __FILE__)
       COMMIT_FILENAME   = 'config/commit_pricing.yml'
       JOYENT_URL        = 'http://www.joyent.com/products/compute-service/pricing'
       HOURS_PER_MONTH   = 720

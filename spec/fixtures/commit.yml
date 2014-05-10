@@ -17,3 +17,7 @@ reserved:
     prepay: 1800.00
     monthly: 600
     quantity: 5
+
+custom:
+  :some-fake-flavor-again:
+    :cost: 2.451
