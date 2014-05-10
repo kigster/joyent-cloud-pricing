@@ -4,3 +4,5 @@
   :cost: 0.58
 :g3-standard-0.5-smartos:
   :cost: 0.016
+:g3-highmemory-96-smartos:
+  :cost: 2.451
