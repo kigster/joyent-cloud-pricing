@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Joyent::Cloud::Pricing::Scraper' do
+RSpec.describe 'Joyent::Cloud::Pricing::Scraper' do
   context 'scraping from URL'
   let(:scraper) { Joyent::Cloud::Pricing::Scraper.new }
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Joyent::Cloud::Pricing::Configuration' do
+RSpec.describe 'Joyent::Cloud::Pricing::Configuration' do
   expected_prices = {
       'g3-standard-48-smartos' => 1.536,
       'g3-standard-0.625-smartos' => 0.02,

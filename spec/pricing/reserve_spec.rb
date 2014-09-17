@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Joyent::Cloud::Pricing::Reserve' do
+RSpec.describe 'Joyent::Cloud::Pricing::Reserve' do
   let(:pricing) { Joyent::Cloud::Pricing::Configuration.from_yaml }
   let(:flavor)  { "g3-highcpu-32-smartos-cc" }
   let(:reserve) {

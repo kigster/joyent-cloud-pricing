@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Joyent::Cloud::Pricing::Reporter' do
+RSpec.describe 'Joyent::Cloud::Pricing::Reporter' do
 
   let(:flavors) { %w(
     g3-highcpu-16-smartos

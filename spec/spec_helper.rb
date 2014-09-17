@@ -19,6 +19,7 @@ RSpec.configure do |config|
   # the filtering metadata and `run_all_when_everything_filtered = true` then
   # all specs will run.
   #config.filter_run :focus
+  config.disable_monkey_patching!
 
   # Run all specs when none match the provided filter. This works well in
   # conjunction with `config.filter_run :focus`, as it will run the entire

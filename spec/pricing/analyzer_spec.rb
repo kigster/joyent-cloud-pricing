@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Joyent::Cloud::Pricing::Analyzer' do
+RSpec.describe 'Joyent::Cloud::Pricing::Analyzer' do
 
   FLAVORS =  %w(
       g3-highcpu-16-smartos

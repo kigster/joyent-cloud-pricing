@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Joyent::Cloud::Pricing::Commit' do
+RSpec.describe 'Joyent::Cloud::Pricing::Commit' do
 
   context 'when some reserve pricing is defined' do
     let(:commit) { Joyent::Cloud::Pricing::Commit.from_yaml 'spec/fixtures/commit.yml' }

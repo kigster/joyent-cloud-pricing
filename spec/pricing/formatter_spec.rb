@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe' Joyent::Cloud::Pricing::Formatter' do
+RSpec.describe' Joyent::Cloud::Pricing::Formatter' do
 
   let(:config) { Joyent::Cloud::Pricing::Configuration.new(
                  {'g3-standard-48-smartos' => {cost: 1.536},
