@@ -150,6 +150,22 @@ custom:
 The structure is the same as in the main file ```joyent_pricing.yml```, and the contents will
 simply be merged on top of Joyent's standard pricing, so you can even overwrite existing flavors.
 
+### On Demand Discounts
+
+If (hypothetically speaking) you were able to negotiate a flat percentage discount off the on-demand
+rates, you could add the following to the commit pricing file:
+
+```yaml
+defaults: &defaults
+    years: 1
+
+discount:
+    type: :percent
+    value: 5
+```
+
+This would apply %5 discount to all on-demand rates.  Any reserve pricing would not be affected.
+
 ### Reporter
 
 This module is used by ```knife joyent server price``` plugin to calculate pricing with and without
