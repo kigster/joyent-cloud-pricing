@@ -1,0 +1,27 @@
+defaults: &defaults
+    years: 1
+
+discount:
+  type: :percent
+  value: 30
+
+reserved:
+  "g3-highcpu-32-smartos-cc":
+    <<: *defaults
+    prepay: 8000.00
+    monthly: 500
+    quantity: 10
+  "g3-highmemory-17.125-smartos":
+    <<: *defaults
+    prepay: 800.00
+    monthly: 60
+    quantity: 12
+  "g3-highio-60.5-smartos":
+    <<: *defaults
+    prepay: 1800.00
+    monthly: 600
+    quantity: 5
+
+custom:
+  :some-instance:
+    :cost: 2.451

@@ -6,14 +6,14 @@ module Joyent::Cloud::Pricing
     class << self
       def from_yaml(filename = COMMIT_FILENAME)
         hash = YAML.load(File.read(filename))
-        new(hash['reserved'] || {}, hash['custom'])
+        new(hash['reserved'] || {}, hash['custom'], hash['discount'])
       end
     end
 
     # map of image names to prices
-    attr_accessor :reserves, :custom
+    attr_accessor :reserves, :custom, :discount
 
-    def initialize(hash = {}, custom = nil)
+    def initialize(hash = {}, custom = nil, discount = nil)
       @config = hash.symbolize_keys
       self.reserves = {}
       @config.each_pair do |flavor, config|
@@ -21,6 +21,10 @@ module Joyent::Cloud::Pricing
       end
       if custom
         Joyent::Cloud::Pricing::Configuration.instance.merge(custom)
+      end
+      if discount
+        discount = discount.symbolize_keys
+        self.discount = Joyent::Cloud::Pricing::Discount.type(discount[:type], discount[:value])
       end
     end
 

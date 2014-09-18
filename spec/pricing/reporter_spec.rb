@@ -39,7 +39,7 @@ RSpec.describe 'Joyent::Cloud::Pricing::Reporter' do
     some-fake-flavor-without-pricing
     some-fake-flavor-again
   ) }
-  let(:commit) { Joyent::Cloud::Pricing::Commit.from_yaml 'spec/fixtures/commit.yml' }
+  let(:commit) { Joyent::Cloud::Pricing::Commit.from_yaml 'spec/fixtures/commit_with_discount.yml' }
   let(:reporter) { Joyent::Cloud::Pricing::Reporter.new(commit, flavors) }
 
   before do
@@ -62,6 +62,7 @@ RSpec.describe 'Joyent::Cloud::Pricing::Reporter' do
         expect(output).to_not be_nil
         expect(output).to include('MONTHLY COSTS')
         expect(output).to include('YEARLY RESERVE SAVINGS')
+        expect(output).to include('NOTE: additional discount of')
       end
     end
 

@@ -31,6 +31,9 @@ ZONE COUNTS:
 <%= separator %>
 
 MONTHLY COSTS:
+<%- if commit.discount %>
+  NOTE: additional discount of <%= commit.discount.to_s.green %> applies to all on-demand instances
+<%- end %>
 <%- if print_zone_list -%>
   List of on-demand flavors by price <%= have_commit_pricing? ? "(in excess of reserve)" : "" %>
 

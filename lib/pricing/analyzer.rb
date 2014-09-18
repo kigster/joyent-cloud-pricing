@@ -10,7 +10,7 @@ module Joyent::Cloud::Pricing
       @zone_counts = count_dupes(flavors).symbolize_keys
     end
 
-    # Zones that are not on commit
+    # Zones that are not on commit, i.e on demand
     def excess_zone_counts
       h = {}
       zone_counts.each_pair { |flavor, count| diff = count - quantity_for(flavor); h[flavor] = diff if diff > 0 }
@@ -75,7 +75,7 @@ module Joyent::Cloud::Pricing
 
     def monthly_full_price_for zones
       count_for_all zones do |flavor|
-        pricing.monthly(flavor)
+        (commit.discount.nil?) ? pricing.monthly(flavor) : commit.discount.apply(pricing.monthly(flavor))
       end
     end
 

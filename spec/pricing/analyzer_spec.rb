@@ -113,4 +113,21 @@ RSpec.describe 'Joyent::Cloud::Pricing::Analyzer' do
     end
   end
 
+  context 'for commit with discount' do
+    let(:commit) { Joyent::Cloud::Pricing::Commit.from_yaml 'spec/fixtures/commit_with_discount.yml' }
+    let(:discount) { 0.7 }
+
+    context 'should apply discount only to on demand instances' do
+      it '#monthly_full_price' do
+        expect(analyzer.monthly_full_price).to be_within(0.01).of(35496.0 * discount)
+      end
+
+      it '#monthly_overages_price' do
+        expect(analyzer.monthly_overages_price).to be_within(0.01).of(6432.48 * discount)
+      end
+
+    end
+
+  end
+
 end
