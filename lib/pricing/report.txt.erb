@@ -6,17 +6,17 @@ Joyent Pricing Calculator: https://github.com/kigster/joyent-cloud-pricing
   were excluded from calculations. You could add them to the "custom"
   section of your reserve pricing file, and specify their cost.
 
-  Total # of zones with unknown flavors:     <%= sprintf("%20d", unknown_zone_total).red %>
+  Total # of instances with unknown flavors:     <%= sprintf("%20d", unknown_zone_total).red %>
   List of unknown flavors below:
 
 <%= unknown_zones_for_print.red %>
 <%= separator %>
 
 <%- end -%>
-ZONE COUNTS:
-  Total # of zones                           <%= sprintf("%20d", zones_in_use.size).cyan %>
+INSTANCE COUNTS:
+  Total # of instances                           <%= sprintf("%20d", zones_in_use.size).cyan %>
 <%- if have_commit_pricing? -%>
-  Total # of reserved zones                  <%= sprintf("%20d", commit.total_zones).green %>
+  Total # of reserved instances                  <%= sprintf("%20d", commit.total_zones).green %>
 <%-     if have_over_reserved_zones? -%>
   Total # of reserved but absent flavors     <%= value = sprintf("%20d", over_reserved_zone_counts.size || 0); value == "0" ? value.blue : value.red %>
 <%= over_reserved_zones_for_print.magenta %>
@@ -42,7 +42,7 @@ MONTHLY COSTS:
 <%- end -%>
   On demand monthly                          <%= format_price(monthly_overages_price, 20).yellow %>
 <%- if have_commit_pricing? -%>
-  Zones under reserve pricing                <%= format_price(commit.monthly_price, 20).green %>
+  Instances under reserve pricing                <%= format_price(commit.monthly_price, 20).green %>
 <%- end -%>
 <%- if have_commit_pricing? -%>
                                                       <%= "___________".cyan %>
