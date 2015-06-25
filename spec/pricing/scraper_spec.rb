@@ -4,14 +4,14 @@ RSpec.describe 'Joyent::Cloud::Pricing::Scraper' do
   context 'scraping from URL'
   let(:scraper) { Joyent::Cloud::Pricing::Scraper.new }
 
-  let(:prices) { {'g3-standard-48-smartos' => 1.536,
-                  'g3-standard-0.625-smartos' => 0.02,
-                  'g3-standard-30-kvm' => 0.960
+  let(:prices) { {'t4-standard-512M' => 0.013,
+                  't4-standard-1G' => 0.226,
+                  't4-standard-2G' => 0.253
                } }
 
-  let(:cpus) { {'g3-standard-48-smartos' => 12.0,
-                  'g3-standard-0.625-smartos' => 0.15,
-                  'g3-standard-30-kvm' => 8.0
+  let(:cpus) { {'g3-highmemory-17.125-smartos' => 2.0,
+                  'g3-highcpu-1.75-smartos' => 2.0,
+                  'g3-highstorage-64-smartos' => 16.0
                } }
 
   before do
@@ -20,10 +20,10 @@ RSpec.describe 'Joyent::Cloud::Pricing::Scraper' do
 
   it 'should load pricing configuration hash from Joyent Website' do
     prices.keys.each do |flavor|
-      expect(@config[flavor][:cost]).to eql(prices[flavor])
+      expect(@config[flavor][:cost]).to eq(prices[flavor]), "cost is incorrect for #{flavor}"
     end
     cpus.keys.each do |flavor|
-      expect(@config[flavor][:cpus]).to eql(cpus[flavor])
+      expect(@config[flavor][:cpus]).to eq(cpus[flavor]), "# of CPUs is incorrect for #{flavor}"
     end
   end
 end

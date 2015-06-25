@@ -41,8 +41,8 @@ RSpec.describe 'Joyent::Cloud::Pricing::Configuration' do
       flavor = config.flavor 'g3-standard-48-smartos'
       expect(flavor.class).to eql(Joyent::Cloud::Pricing::Flavor)
 
-      expect(flavor.ram).to eql(12.0)
-      expect(flavor.cpus).to eql(16.0)
+      expect(flavor.ram).to eql(48.0)
+      expect(flavor.cpus).to eql(12.0)
       expect(flavor.cost).to eql(1.536)
     end
   end
