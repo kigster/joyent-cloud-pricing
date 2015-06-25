@@ -17,3 +17,311 @@
   :ram: 7.5
   :cpus: 32.0
   :disk: 3100
+:g3-standard-0.625-smartos:
+  :name: g3-standard-0.625-smartos
+  :os: SmartOS
+  :cost: 0.02
+  :cpus: 0.15
+  :disk: 20
+  :ram: 0.625
+:g3-standard-1.75-smartos:
+  :name: g3-standard-1.75-smartos
+  :os: SmartOS
+  :cost: 0.056
+  :cpus: 1.0
+  :disk: 56
+  :ram: 1.75
+:g3-standard-3.75-smartos:
+  :name: g3-standard-3.75-smartos
+  :os: SmartOS
+  :cost: 0.12
+  :cpus: 1.0
+  :disk: 123
+  :ram: 3.75
+:g3-standard-7.5-smartos:
+  :name: g3-standard-7.5-smartos
+  :os: SmartOS
+  :cost: 0.24
+  :cpus: 2.0
+  :disk: 738
+  :ram: 7.5
+:g3-standard-15-smartos:
+  :name: g3-standard-15-smartos
+  :os: SmartOS
+  :cost: 0.48
+  :cpus: 4.0
+  :disk: 1467
+  :ram: 15.0
+:g3-standard-30-smartos:
+  :name: g3-standard-30-smartos
+  :os: SmartOS
+  :cost: 0.96
+  :cpus: 8.0
+  :disk: 1683
+  :ram: 30.0
+:g3-standard-48-smartos:
+  :name: g3-standard-48-smartos
+  :os: SmartOS
+  :cost: 1.536
+  :cpus: 12.0
+  :disk: 1683
+  :ram: 48.0
+:g3-standard-64-smartos:
+  :name: g3-standard-64-smartos
+  :os: SmartOS
+  :cost: 2.048
+  :cpus: 16.0
+  :disk: 2100
+  :ram: 64.0
+:g3-standard-80-smartos:
+  :name: g3-standard-80-smartos
+  :os: SmartOS
+  :cost: 2.56
+  :cpus: 20.0
+  :disk: 2625
+  :ram: 80.0
+:g3-standard-96-smartos:
+  :name: g3-standard-96-smartos
+  :os: SmartOS
+  :cost: 3.072
+  :cpus: 24.0
+  :disk: 3150
+  :ram: 96.0
+:g3-standard-128-smartos-cc:
+  :name: g3-standard-128-smartos-cc
+  :os: SmartOS
+  :cost: 4.096
+  :cpus: 32.0
+  :disk: 4200
+  :ram: 128.0
+:g3-highmemory-17.125-smartos:
+  :name: g3-highmemory-17.125-smartos
+  :os: SmartOS
+  :cost: 0.409
+  :cpus: 2.0
+  :disk: 420
+  :ram: 17.125
+:g3-highmemory-34.25-smartos:
+  :name: g3-highmemory-34.25-smartos
+  :os: SmartOS
+  :cost: 0.817
+  :cpus: 4.0
+  :disk: 843
+  :ram: 34.25
+:g3-highmemory-68.375-smartos:
+  :name: g3-highmemory-68.375-smartos
+  :os: SmartOS
+  :cost: 1.63
+  :cpus: 8.0
+  :disk: 1122
+  :ram: 68.375
+:g3-highmemory-144-smartos:
+  :name: g3-highmemory-144-smartos
+  :os: SmartOS
+  :cost: 3.433
+  :cpus: 18.0
+  :disk: 2363
+  :ram: 144.0
+:g3-highmemory-256-smartos-cc:
+  :name: g3-highmemory-256-smartos-cc
+  :os: SmartOS
+  :cost: 6.102
+  :cpus: 32.0
+  :disk: 4200
+  :ram: 256.0
+:g3-highcpu-1.75-smartos:
+  :name: g3-highcpu-1.75-smartos
+  :os: SmartOS
+  :cost: 0.127
+  :cpus: 2.0
+  :disk: 75
+  :ram: 1.75
+:g3-highcpu-7-smartos:
+  :name: g3-highcpu-7-smartos
+  :os: SmartOS
+  :cost: 0.508
+  :cpus: 7.0
+  :disk: 262
+  :ram: 7.0
+:g3-highcpu-16-smartos:
+  :name: g3-highcpu-16-smartos
+  :os: SmartOS
+  :cost: 1.16
+  :cpus: 16.0
+  :disk: 600
+  :ram: 16.0
+:g3-highcpu-24-smartos:
+  :name: g3-highcpu-24-smartos
+  :os: SmartOS
+  :cost: 1.739
+  :cpus: 24.0
+  :disk: 900
+  :ram: 24.0
+:g3-highcpu-32-smartos-cc:
+  :name: g3-highcpu-32-smartos-cc
+  :os: SmartOS
+  :cost: 2.319
+  :cpus: 32.0
+  :disk: 1200
+  :ram: 32.0
+:g3-highio-15-smartos:
+  :name: g3-highio-15-smartos
+  :os: SmartOS
+  :cost: 0.76
+  :cpus: 2.0
+  :disk: 360
+  :ram: 15.0
+:g3-highio-30-smartos:
+  :name: g3-highio-30-smartos
+  :os: SmartOS
+  :cost: 1.52
+  :cpus: 4.0
+  :disk: 725
+  :ram: 30.0
+:g3-highio-60.5-smartos:
+  :name: g3-highio-60.5-smartos
+  :os: SmartOS
+  :cost: 3.067
+  :cpus: 8.0
+  :disk: 1452
+  :ram: 60.5
+:g3-highio-128-smartos:
+  :name: g3-highio-128-smartos
+  :os: SmartOS
+  :cost: 6.488
+  :cpus: 16.0
+  :disk: 3072
+  :ram: 128.0
+:g3-highio-256-smartos-cc:
+  :name: g3-highio-256-smartos-cc
+  :os: SmartOS
+  :cost: 12.976
+  :cpus: 32.0
+  :disk: 6144
+  :ram: 256.0
+:g3-highstorage-32-smartos:
+  :name: g3-highstorage-32-smartos
+  :os: SmartOS
+  :cost: 0.863
+  :cpus: 8.0
+  :disk: 7680
+  :ram: 32.0
+:g3-highstorage-64-smartos:
+  :name: g3-highstorage-64-smartos
+  :os: SmartOS
+  :cost: 1.726
+  :cpus: 16.0
+  :disk: 15360
+  :ram: 64.0
+:g3-highstorage-128-smartos-cc:
+  :name: g3-highstorage-128-smartos-cc
+  :os: SmartOS
+  :cost: 3.451
+  :cpus: 32.0
+  :disk: 30720
+  :ram: 128.0
+:g3-standard-0.625-kvm:
+  :name: g3-standard-0.625-kvm
+  :os: Linux
+  :cost: 0.02
+  :cpus: 0.15
+  :disk: 20
+  :ram: 0.625
+:g3-standard-1.75-kvm:
+  :name: g3-standard-1.75-kvm
+  :os: Linux
+  :cost: 0.056
+  :cpus: 1.0
+  :disk: 56
+  :ram: 1.75
+:g3-standard-3.75-kvm:
+  :name: g3-standard-3.75-kvm
+  :os: Linux
+  :cost: 0.12
+  :cpus: 1.0
+  :disk: 123
+  :ram: 3.75
+:g3-standard-7.5-kvm:
+  :name: g3-standard-7.5-kvm
+  :os: Linux
+  :cost: 0.24
+  :cpus: 2.0
+  :disk: 738
+  :ram: 7.5
+:g3-standard-15-kvm:
+  :name: g3-standard-15-kvm
+  :os: Linux
+  :cost: 0.48
+  :cpus: 4.0
+  :disk: 1467
+  :ram: 15.0
+:g3-standard-30-kvm:
+  :name: g3-standard-30-kvm
+  :os: Linux
+  :cost: 0.96
+  :cpus: 8.0
+  :disk: 1683
+  :ram: 30.0
+:g3-highmemory-17.125-kvm:
+  :name: g3-highmemory-17.125-kvm
+  :os: Linux
+  :cost: 0.409
+  :cpus: 2.0
+  :disk: 420
+  :ram: 17.125
+:g3-highmemory-34.25-kvm:
+  :name: g3-highmemory-34.25-kvm
+  :os: Linux
+  :cost: 0.817
+  :cpus: 4.0
+  :disk: 843
+  :ram: 34.25
+:g3-highmemory-68.375-kvm:
+  :name: g3-highmemory-68.375-kvm
+  :os: Linux
+  :cost: 1.63
+  :cpus: 8.0
+  :disk: 1122
+  :ram: 68.375
+:g3-highcpu-1.75-kvm:
+  :name: g3-highcpu-1.75-kvm
+  :os: Linux
+  :cost: 0.127
+  :cpus: 2.0
+  :disk: 75
+  :ram: 1.75
+:g3-highcpu-7-kvm:
+  :name: g3-highcpu-7-kvm
+  :os: Linux
+  :cost: 0.508
+  :cpus: 7.0
+  :disk: 262
+  :ram: 7.0
+:g3-highio-15-kvm:
+  :name: g3-highio-15-kvm
+  :os: Linux
+  :cost: 0.76
+  :cpus: 2.0
+  :disk: 360
+  :ram: 15.0
+:g3-highio-30-kvm:
+  :name: g3-highio-30-kvm
+  :os: Linux
+  :cost: 1.52
+  :cpus: 4.0
+  :disk: 725
+  :ram: 30.0
+:g3-highio-60.5-kvm:
+  :name: g3-highio-60.5-kvm
+  :os: Linux
+  :cost: 3.067
+  :cpus: 8.0
+  :disk: 1452
+  :ram: 60.5
+:g3-highstorage-32-kvm:
+  :name: g3-highstorage-32-kvm
+  :os: Linux
+  :cost: 0.863
+  :cpus: 8.0
+  :disk: 7680
+  :ram: 32.0
