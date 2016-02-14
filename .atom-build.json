@@ -1,0 +1,12 @@
+{
+  "cmd": "bundle exec rspec",
+  "name": "All Specs",
+  "errorMatch": [
+    "^regexp1$",
+    "^regexp2$"
+  ],
+  "env": { 
+    "PATH": "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:/Users/kig/.rbenv/shims:/Users/kig/.pyenv/shims:/Users/kig/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/kig/workspace/kigster/pullulant"
+   },
+  "keymap": "ctrl-r"
+}

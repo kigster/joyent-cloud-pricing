@@ -6,11 +6,12 @@ namespace :joyent do
     task :update do
       load_from_url = Joyent::Cloud::Pricing::JOYENT_URL
       save_to_file = Joyent::Cloud::Pricing::PRICING_FILENAME
-
+      old_config = Joyent::Cloud::Pricing::Configuration.from_yaml
       STDOUT.puts "downloading latest prices from #{load_from_url}"
-      config = Joyent::Cloud::Pricing::Configuration.from_url(load_from_url)
-      config.save_yaml(save_to_file)
-      STDOUT.puts "saved #{config.config.keys.size} image prices to #{save_to_file}"
+      new_config = Joyent::Cloud::Pricing::Configuration.from_url(load_from_url)
+      old_config.config.merge!(new_config.config)
+      old_config.save_yaml(save_to_file)
+      STDOUT.puts "saved #{old_config.config.keys.size} image prices to #{save_to_file}"
     end
   end
 end

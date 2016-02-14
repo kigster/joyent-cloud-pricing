@@ -120,7 +120,7 @@ module Joyent::Cloud::Pricing
           f.respond_to?(operation.to_sym) ? f.send(operation) : 0
         end
       end
-      { total: results[0], unreserved: results[1], reserved: results[2] }
+      { total: results[0].round(2), unreserved: results[1].round(2), reserved: results[2].round(2) }
     end
 
 
@@ -148,4 +148,3 @@ module Joyent::Cloud::Pricing
 
   end
 end
-

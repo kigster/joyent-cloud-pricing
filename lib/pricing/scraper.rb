@@ -15,12 +15,14 @@ module Joyent::Cloud::Pricing
 
       def result
         config = Hash.new
+        i = 0
         self.doc.css('ul.full-specs').each do |ul|
           flavor = extract_price(ul)
+          i += 1
           next if flavor.cost.nil?
-          next if flavor.name =~ /kvm/ && flavor.os !~ /linux/i
           config[flavor.name]= flavor.to_h
         end
+        puts "Found #{i} elements of class 'full-specs'"
         config
       end
 
