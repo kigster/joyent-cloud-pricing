@@ -14,14 +14,14 @@ end
 RSpec.describe 'Joyent::Cloud::Pricing::Scraper' do
   let(:scraper) { Joyent::Cloud::Pricing::Scraper.new }
 
-  let(:prices) { {'t4-standard-64G' => 1.68,
-                  'g3-highcpu-1.75-smartos' =>0.127,
-                  'g3-highio-60.5-kvm' => 3.067
+  let(:prices) { {'k4-highcpu-kvm-750M' => 0.0325,
+                  'k4-fastdisk-kvm-63.75G' =>2.1313,
+                  'g4-highram-110G' => 1.6625
                } }
 
-  let(:cpus) { {'t4-standard-64G' => 32.0,
-                  'g3-highcpu-1.75-smartos' => 2.0,
-                  'g3-highio-60.5-kvm' => 8.0
+  let(:cpus) { {'g4-highram-110G' => 16.0,
+                  'g4-highcpu-64G' => 32.0,
+                  'k4-highram-kvm-63.75G' => 8.0
                } }
 
 
