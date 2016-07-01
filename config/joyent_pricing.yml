@@ -1,5 +1,5 @@
 ---
-:date: '2016-02-14 01:23:52 -0800'
+:date: '2016-07-01 12:32:43 -0700'
 :pricing:
   :g3-standard-0.625-smartos:
     :name: g3-standard-0.625-smartos
@@ -80,105 +80,105 @@
     :ram: 128.0
   :g3-highmemory-17.125-smartos:
     :name: g3-highmemory-17.125-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 0.409
     :cpus: 2.0
     :disk: 420
-    :ram: 17.13
+    :ram: 17.125
   :g3-highmemory-34.25-smartos:
     :name: g3-highmemory-34.25-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 0.817
     :cpus: 4.0
     :disk: 843
     :ram: 34.25
   :g3-highmemory-68.375-smartos:
     :name: g3-highmemory-68.375-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 1.63
     :cpus: 8.0
     :disk: 1122
-    :ram: 68.38
+    :ram: 68.375
   :g3-highmemory-144-smartos:
     :name: g3-highmemory-144-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 3.433
     :cpus: 18.0
     :disk: 2363
     :ram: 144.0
   :g3-highmemory-256-smartos-cc:
     :name: g3-highmemory-256-smartos-cc
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 6.102
     :cpus: 32.0
     :disk: 4200
     :ram: 256.0
   :g3-highcpu-1.75-smartos:
     :name: g3-highcpu-1.75-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 0.127
     :cpus: 2.0
     :disk: 75
     :ram: 1.75
   :g3-highcpu-7-smartos:
     :name: g3-highcpu-7-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 0.508
     :cpus: 7.0
-    :disk: 263
+    :disk: 262
     :ram: 7.0
   :g3-highcpu-16-smartos:
     :name: g3-highcpu-16-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 1.16
     :cpus: 16.0
     :disk: 600
     :ram: 16.0
   :g3-highcpu-24-smartos:
     :name: g3-highcpu-24-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 1.739
     :cpus: 24.0
     :disk: 900
     :ram: 24.0
   :g3-highcpu-32-smartos-cc:
     :name: g3-highcpu-32-smartos-cc
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 2.319
     :cpus: 32.0
     :disk: 1200
     :ram: 32.0
   :g3-highio-15-smartos:
     :name: g3-highio-15-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 0.76
     :cpus: 2.0
     :disk: 360
     :ram: 15.0
   :g3-highio-30-smartos:
     :name: g3-highio-30-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 1.52
     :cpus: 4.0
     :disk: 725
     :ram: 30.0
   :g3-highio-60.5-smartos:
     :name: g3-highio-60.5-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 3.067
     :cpus: 8.0
     :disk: 1452
     :ram: 60.5
   :g3-highio-128-smartos:
     :name: g3-highio-128-smartos
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 6.488
     :cpus: 16.0
     :disk: 3072
     :ram: 128.0
   :g3-highio-256-smartos-cc:
     :name: g3-highio-256-smartos-cc
-    :os: Infrastructure Container
+    :os: SmartOS
     :cost: 12.976
     :cpus: 32.0
     :disk: 6144
@@ -213,14 +213,14 @@
     :ram: 0.625
   :g3-standard-1.75-kvm:
     :name: g3-standard-1.75-kvm
-    :os: Hardware VM
+    :os: Linux
     :cost: 0.056
     :cpus: 1.0
     :disk: 56
     :ram: 1.75
   :g3-standard-3.75-kvm:
     :name: g3-standard-3.75-kvm
-    :os: Hardware VM
+    :os: Linux
     :cost: 0.12
     :cpus: 1.0
     :disk: 123
@@ -248,38 +248,38 @@
     :ram: 30.0
   :g3-highmemory-17.125-kvm:
     :name: g3-highmemory-17.125-kvm
-    :os: Hardware VM
+    :os: Linux
     :cost: 0.409
     :cpus: 2.0
     :disk: 420
-    :ram: 17.13
+    :ram: 17.125
   :g3-highmemory-34.25-kvm:
     :name: g3-highmemory-34.25-kvm
-    :os: Hardware VM
+    :os: Linux
     :cost: 0.817
     :cpus: 4.0
     :disk: 843
     :ram: 34.25
   :g3-highmemory-68.375-kvm:
     :name: g3-highmemory-68.375-kvm
-    :os: Hardware VM
+    :os: Linux
     :cost: 1.63
     :cpus: 8.0
     :disk: 1122
-    :ram: 68.38
+    :ram: 68.375
   :g3-highcpu-1.75-kvm:
     :name: g3-highcpu-1.75-kvm
-    :os: Hardware VM
+    :os: Linux
     :cost: 0.127
     :cpus: 2.0
     :disk: 75
     :ram: 1.75
   :g3-highcpu-7-kvm:
     :name: g3-highcpu-7-kvm
-    :os: Hardware VM
+    :os: Linux
     :cost: 0.508
     :cpus: 7.0
-    :disk: 263
+    :disk: 262
     :ram: 7.0
   :g3-highio-15-kvm:
     :name: g3-highio-15-kvm
@@ -297,7 +297,7 @@
     :ram: 30.0
   :g3-highio-60.5-kvm:
     :name: g3-highio-60.5-kvm
-    :os: Hardware VM
+    :os: Linux
     :cost: 3.067
     :cpus: 8.0
     :disk: 1452
@@ -468,3 +468,304 @@
     :cpus: 32.0
     :disk: 6144
     :ram: 256.0
+  :g4-highcpu-128M:
+    :name: g4-highcpu-128M
+    :os: smartos
+    :cost: 0.003
+    :cpus: 0.0625
+    :disk: 2
+    :ram: 0.125
+  :g4-highcpu-256M:
+    :name: g4-highcpu-256M
+    :os: smartos
+    :cost: 0.007
+    :cpus: 0.125
+    :disk: 5
+    :ram: 0.25
+  :g4-highcpu-512M:
+    :name: g4-highcpu-512M
+    :os: smartos
+    :cost: 0.013
+    :cpus: 0.25
+    :disk: 10
+    :ram: 0.5
+  :g4-highcpu-1G:
+    :name: g4-highcpu-1G
+    :os: smartos
+    :cost: 0.026
+    :cpus: 0.5
+    :disk: 25
+    :ram: 1.0
+  :g4-highcpu-2G:
+    :name: g4-highcpu-2G
+    :os: smartos
+    :cost: 0.053
+    :cpus: 1.0
+    :disk: 50
+    :ram: 2.0
+  :g4-highcpu-4G:
+    :name: g4-highcpu-4G
+    :os: smartos
+    :cost: 0.105
+    :cpus: 2.0
+    :disk: 100
+    :ram: 4.0
+  :g4-highcpu-8G:
+    :name: g4-highcpu-8G
+    :os: smartos
+    :cost: 0.21
+    :cpus: 4.0
+    :disk: 200
+    :ram: 8.0
+  :g4-highcpu-16G:
+    :name: g4-highcpu-16G
+    :os: smartos
+    :cost: 0.42
+    :cpus: 8.0
+    :disk: 400
+    :ram: 16.0
+  :g4-highcpu-32G:
+    :name: g4-highcpu-32G
+    :os: smartos
+    :cost: 0.84
+    :cpus: 16.0
+    :disk: 800
+    :ram: 32.0
+  :g4-highcpu-64G:
+    :name: g4-highcpu-64G
+    :os: smartos
+    :cost: 1.68
+    :cpus: 32.0
+    :disk: 1600
+    :ram: 64.0
+  :g4-general-4G:
+    :name: g4-general-4G
+    :os: smartos
+    :cost: 0.067
+    :cpus: 1.0
+    :disk: 50
+    :ram: 4.0
+  :g4-general-8G:
+    :name: g4-general-8G
+    :os: smartos
+    :cost: 0.133
+    :cpus: 2.0
+    :disk: 100
+    :ram: 8.0
+  :g4-general-16G:
+    :name: g4-general-16G
+    :os: smartos
+    :cost: 0.266
+    :cpus: 4.0
+    :disk: 200
+    :ram: 16.0
+  :g4-general-32G:
+    :name: g4-general-32G
+    :os: smartos
+    :cost: 0.532
+    :cpus: 8.0
+    :disk: 400
+    :ram: 32.0
+  :g4-highram-16G:
+    :name: g4-highram-16G
+    :os: smartos
+    :cost: 0.2075
+    :cpus: 2.0
+    :disk: 100
+    :ram: 16.0
+  :g4-highram-32G:
+    :name: g4-highram-32G
+    :os: smartos
+    :cost: 0.4163
+    :cpus: 4.0
+    :disk: 200
+    :ram: 32.0
+  :g4-highram-64G:
+    :name: g4-highram-64G
+    :os: smartos
+    :cost: 0.8313
+    :cpus: 8.0
+    :disk: 400
+    :ram: 64.0
+  :g4-highram-110G:
+    :name: g4-highram-110G
+    :os: smartos
+    :cost: 1.6625
+    :cpus: 16.0
+    :disk: 800
+    :ram: 110.0
+  :g4-fastdisk-32G:
+    :name: g4-fastdisk-32G
+    :os: smartos
+    :cost: 0.853
+    :cpus: 4.0
+    :disk: 800
+    :ram: 32.0
+  :g4-fastdisk-64G:
+    :name: g4-fastdisk-64G
+    :os: smartos
+    :cost: 1.705
+    :cpus: 8.0
+    :disk: 1600
+    :ram: 64.0
+  :g4-fastdisk-110G:
+    :name: g4-fastdisk-110G
+    :os: smartos
+    :cost: 3.41
+    :cpus: 16.0
+    :disk: 3200
+    :ram: 110.0
+  :g4-bigdisk-16G:
+    :name: g4-bigdisk-16G
+    :os: smartos
+    :cost: 0.345
+    :cpus: 2.0
+    :disk: 1250
+    :ram: 16.0
+  :g4-bigdisk-32G:
+    :name: g4-bigdisk-32G
+    :os: smartos
+    :cost: 0.69
+    :cpus: 4.0
+    :disk: 2500
+    :ram: 32.0
+  :g4-bigdisk-64G:
+    :name: g4-bigdisk-64G
+    :os: smartos
+    :cost: 1.38
+    :cpus: 8.0
+    :disk: 5000
+    :ram: 64.0
+  :g4-bigdisk-110G:
+    :name: g4-bigdisk-110G
+    :os: smartos
+    :cost: 2.76
+    :cpus: 16.0
+    :disk: 10000
+    :ram: 110.0
+  :k4-highcpu-kvm-250M:
+    :name: k4-highcpu-kvm-250M
+    :os: kvm
+    :cost: 0.0163
+    :cpus: 0.25
+    :disk: 10
+    :ram: 0.25
+  :k4-highcpu-kvm-750M:
+    :name: k4-highcpu-kvm-750M
+    :os: kvm
+    :cost: 0.0325
+    :cpus: 0.5
+    :disk: 25
+    :ram: 0.75
+  :k4-highcpu-kvm-1.75G:
+    :name: k4-highcpu-kvm-1.75G
+    :os: kvm
+    :cost: 0.0663
+    :cpus: 1.0
+    :disk: 50
+    :ram: 1.75
+  :k4-highcpu-kvm-3.75G:
+    :name: k4-highcpu-kvm-3.75G
+    :os: kvm
+    :cost: 0.1313
+    :cpus: 2.0
+    :disk: 100
+    :ram: 3.75
+  :k4-highcpu-kvm-7.75G:
+    :name: k4-highcpu-kvm-7.75G
+    :os: kvm
+    :cost: 0.2625
+    :cpus: 4.0
+    :disk: 200
+    :ram: 7.75
+  :k4-highcpu-kvm-15.75G:
+    :name: k4-highcpu-kvm-15.75G
+    :os: kvm
+    :cost: 0.525
+    :cpus: 8.0
+    :disk: 400
+    :ram: 15.75
+  :k4-general-kvm-3.75G:
+    :name: k4-general-kvm-3.75G
+    :os: kvm
+    :cost: 0.0838
+    :cpus: 1.0
+    :disk: 50
+    :ram: 3.75
+  :k4-general-kvm-7.75G:
+    :name: k4-general-kvm-7.75G
+    :os: kvm
+    :cost: 0.1663
+    :cpus: 2.0
+    :disk: 100
+    :ram: 7.75
+  :k4-general-kvm-15.75G:
+    :name: k4-general-kvm-15.75G
+    :os: kvm
+    :cost: 0.3325
+    :cpus: 4.0
+    :disk: 200
+    :ram: 15.75
+  :k4-general-kvm-31.75G:
+    :name: k4-general-kvm-31.75G
+    :os: kvm
+    :cost: 0.665
+    :cpus: 8.0
+    :disk: 400
+    :ram: 31.75
+  :k4-highram-kvm-15.75G:
+    :name: k4-highram-kvm-15.75G
+    :os: kvm
+    :cost: 0.2594
+    :cpus: 2.0
+    :disk: 100
+    :ram: 15.75
+  :k4-highram-kvm-31.75G:
+    :name: k4-highram-kvm-31.75G
+    :os: kvm
+    :cost: 0.5203
+    :cpus: 4.0
+    :disk: 200
+    :ram: 31.75
+  :k4-highram-kvm-63.75G:
+    :name: k4-highram-kvm-63.75G
+    :os: kvm
+    :cost: 1.0391
+    :cpus: 8.0
+    :disk: 400
+    :ram: 63.75
+  :k4-fastdisk-kvm-31.75G:
+    :name: k4-fastdisk-kvm-31.75G
+    :os: kvm
+    :cost: 1.0663
+    :cpus: 4.0
+    :disk: 800
+    :ram: 31.75
+  :k4-fastdisk-kvm-63.75G:
+    :name: k4-fastdisk-kvm-63.75G
+    :os: kvm
+    :cost: 2.1313
+    :cpus: 8.0
+    :disk: 1600
+    :ram: 63.75
+  :k4-bigdisk-kvm-15.75G:
+    :name: k4-bigdisk-kvm-15.75G
+    :os: kvm
+    :cost: 0.4125
+    :cpus: 2.0
+    :disk: 1200
+    :ram: 15.75
+  :k4-bigdisk-kvm-31.75G:
+    :name: k4-bigdisk-kvm-31.75G
+    :os: kvm
+    :cost: 0.825
+    :cpus: 4.0
+    :disk: 2500
+    :ram: 31.75
+  :k4-bigdisk-kvm-63.75G:
+    :name: k4-bigdisk-kvm-63.75G
+    :os: kvm
+    :cost: 1.725
+    :cpus: 8.0
+    :disk: 5000
+    :ram: 63.75

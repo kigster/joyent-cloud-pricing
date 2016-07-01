@@ -33,9 +33,9 @@ module Joyent::Cloud::Pricing
         # grab last two <li> elements in each <ul class="full-spec"> block
         # and first few for cpu/ram/disk
         # note: this obviously depends on Joyent website markup and is subject to break.
-        Flavor.new(lis[-1], # flavor
-                   os: lis[-3],
-                   cost: lis[-2].gsub(/^\$/, ''),
+        Flavor.new(lis[4], # flavor
+                   os: lis[3],
+                   cost: lis[5].gsub(/^\$/, ''),
                    ram: lis[0],
                    cpus: lis[1],
                    disk: lis[2])
