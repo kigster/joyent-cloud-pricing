@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe 'Joyent::Cloud::Pricing::Discount' do
-  let(:pricing) { Joyent::Cloud::Pricing::Configuration.from_yaml }
+  let(:pricing) { Joyent::Cloud::Pricing::Configuration.default }
   let(:discount) { Joyent::Cloud::Pricing::Discount.type(:percent, 30)  }
   let(:commit) { Joyent::Cloud::Pricing::Commit.from_yaml 'spec/fixtures/commit_with_discount.yml' }
 
