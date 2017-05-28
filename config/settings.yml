@@ -1,0 +1,9 @@
+default:
+  files:
+    current: config/joyent_pricing.yml
+    legacy: config/joyent_pricing_unpublished.yml
+    commit: config/commit_pricing.yml
+  scraper:
+    url: https://www.joyent.com/pricing/cloud/compute
+  calculations:
+    hours_in_month: 720

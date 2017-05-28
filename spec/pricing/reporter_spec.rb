@@ -43,7 +43,7 @@ RSpec.describe 'Joyent::Cloud::Pricing::Reporter' do
   let(:reporter) { Joyent::Cloud::Pricing::Reporter.new(commit, flavors) }
 
   before do
-    Joyent::Cloud::Pricing::Configuration.instance(true)
+    Joyent::Cloud::Pricing::Configuration.default
   end
 
   context '#initialize' do

@@ -1,13 +1,22 @@
 ---
 :date: '2014-03-23 21:51:04 -0700'
 :pricing:
-  g3-standard-0.625-smartos:
+  :g3-standard-0.625-smartos:
+    :name: g3-standard-0.625-smartos
+    :os: smartos
     :cost: 0.02
-  g3-standard-30-kvm:
+    :cpus: 0.15
+    :disk: 20
+    :ram: 0.625
+  :g3-standard-30-kvm:
+    :name: g3-standard-30-kvm
     :cost: 0.96
-  g3-standard-48-smartos:
+  :g3-standard-65-smartos:
+    :name: g3-standard-48-smartos
     :cost: 1.536
-    :ram: 12
-    :cpus: 16.0
-  g3-standard-64-smartos:
+    :ram: 48
+    :cpus: 16
+    :disk: 2000
+  :g3-standard-64-smartos:
+    :name: g3-standard-64-smartos
     :cost: 2.048

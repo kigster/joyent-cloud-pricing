@@ -2,9 +2,13 @@ ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
 require 'rubygems'
 require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+require 'simplecov'
+
+SimpleCov.start
+
 require 'pricing'
-require 'coveralls'
-Coveralls.wear!
+
+Joyent::Cloud::Pricing::log = Logger.new(nil)
 
 # Dir['spec/support/**/*.rb'].each { |filename| require_relative "../#{filename}" }
 

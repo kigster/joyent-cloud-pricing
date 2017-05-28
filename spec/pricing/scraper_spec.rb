@@ -1,8 +1,8 @@
-require 'pp'
-require 'colored'
+require 'colored2'
 require 'spec_helper'
 
 class OutdatedFixturesExpectation < RuntimeError; end
+
 def check_if_fixtures_are_outdated config, flavor
   if !@config.nil? && !@config.empty? && @config[flavor].nil?
     STDERR.puts "Fixtures may be outdated... Cannot find flavor #{flavor} in the scraped config\n".red +

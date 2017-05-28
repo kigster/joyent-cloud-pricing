@@ -66,7 +66,7 @@ rake joyent:pricing:update
 Full price is stored in the configuration instance and is read from YAML file.
 
 ```ruby
-c = Joyent::Cloud::Pricing::Configuration.instance
+c = Joyent::Cloud::Pricing::Configuration.default
 f = c.flavor "g3-highmemory-34.25-kvm"
 f.to_h
 # => {:name=>"g3-highmemory-34.25-kvm", :os=>"Linux",

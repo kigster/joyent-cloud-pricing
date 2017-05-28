@@ -11,7 +11,7 @@ RSpec.describe 'Joyent::Cloud::Pricing::Configuration' do
   }
 
   let(:config) {
-    Joyent::Cloud::Pricing::Configuration.from_yaml 'spec/fixtures/pricing.yml'
+    Joyent::Cloud::Pricing::Configuration.create 'spec/fixtures/pricing.yml'
   }
 
   context '#from_yaml' do
@@ -23,26 +23,38 @@ RSpec.describe 'Joyent::Cloud::Pricing::Configuration' do
   end
 
   context '#instance' do
-    it 'should be able to create new instance, but remember the last once' do
-      c1 = Joyent::Cloud::Pricing::Configuration.from_yaml 'spec/fixtures/pricing.yml'
-      c2 = Joyent::Cloud::Pricing::Configuration.from_yaml 'spec/fixtures/pricing.yml'
+    before do
+      Joyent::Cloud::Pricing::Configuration.default = nil
+    end
 
-      expect(Joyent::Cloud::Pricing::Configuration.instance).to eql(c2)
-      expect(Joyent::Cloud::Pricing::Configuration.instance).not_to eql(c1)
+    it 'should be able to create new instance, but remember the last once' do
+      c1 = Joyent::Cloud::Pricing::Configuration.create 'config/joyent_pricing.yml'
+      c2 = Joyent::Cloud::Pricing::Configuration.create 'config/joyent_pricing.yml'
+
+      expect(c1).to eq(c2)
+    end
+
+    it 'should be able to create new instance, equal to default' do
+      Joyent::Cloud::Pricing::Configuration.default = nil
+      c1 = Joyent::Cloud::Pricing::Configuration.create(Joyent::Cloud::Pricing.files(:current))
+      c2 = Joyent::Cloud::Pricing::Configuration.default
+
+      expect(c2.config).to eql(c1.config)
     end
 
     it 'should have instance set' do
-      expect(Joyent::Cloud::Pricing::Configuration.instance).not_to be_nil
+      expect(Joyent::Cloud::Pricing::Configuration.default).not_to be_nil
     end
   end
 
   context '#flavor' do
     it 'should properly instantiate Flavor instance from hash' do
-      flavor = config.flavor 'g3-standard-48-smartos'
+      flavor = config.flavor 'g3-standard-65-smartos'
+
       expect(flavor.class).to eql(Joyent::Cloud::Pricing::Flavor)
 
       expect(flavor.ram).to eql(48.0)
-      expect(flavor.cpus).to eql(12.0)
+      expect(flavor.cpus).to eql(16.0)
       expect(flavor.cost).to eql(1.536)
     end
   end

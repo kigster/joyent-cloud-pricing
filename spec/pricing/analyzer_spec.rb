@@ -47,7 +47,7 @@ RSpec.describe 'Joyent::Cloud::Pricing::Analyzer' do
 
   # need to have pricing so that it reloads from real price TODO: fix this
   before do
-    Joyent::Cloud::Pricing::Configuration.from_yaml
+    Joyent::Cloud::Pricing::Configuration.default
   end
 
   it '#initialize' do

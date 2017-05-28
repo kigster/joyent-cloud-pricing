@@ -4,7 +4,7 @@ RSpec.describe 'Joyent::Cloud::Pricing::Commit' do
 
   context 'when some reserve pricing is defined' do
     let(:commit) { Joyent::Cloud::Pricing::Commit.from_yaml 'spec/fixtures/commit.yml' }
-    let(:config) { Joyent::Cloud::Pricing::Configuration.instance }
+    let(:config) { Joyent::Cloud::Pricing::Configuration.default }
 
     let(:expected_commit) { {
         'g3-highcpu-32-smartos-cc'      => {prepay: 8000.0, monthly: 500.0, years: 1, quantity: 10},
@@ -30,7 +30,7 @@ RSpec.describe 'Joyent::Cloud::Pricing::Commit' do
 
   context 'when no reserve but custom pricing is available' do
     let(:commit) { Joyent::Cloud::Pricing::Commit.from_yaml 'spec/fixtures/commit_noreserve.yml' }
-    let(:config) { Joyent::Cloud::Pricing::Configuration.instance }
+    let(:config) { Joyent::Cloud::Pricing::Configuration.default }
     let(:custom_flavor) { :'some-fake-flavor-again' }
     it 'should load properly and add custom to config' do
 
